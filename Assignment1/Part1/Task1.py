@@ -110,6 +110,15 @@ def findKey(input):
         key.append(alphabet[indexes[i]])
     return key
 
+def vigenereDecrypt(input):
+    key = findKey(input)
+    keyLength = len(key)
+    keyUnicode = [ord(i) for i in key]
+    inputUnicode = [ord(i) for i in input]
+    decryptedText = ''
+    for i in range(len(inputUnicode)):
+        value = (inputUnicode[i] - keyUnicode[i % keyLength]) % 26
+        decryptedText += chr(value + 65)
+    return decryptedText
 
-
-print(findKey(rmWSInput))
+print(vigenereDecrypt(rmWSInput))
