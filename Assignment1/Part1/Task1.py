@@ -6,16 +6,13 @@ rawInput = "BQZRMQ  KLBOXE  WCCEFL  DKRYYL  BVEHIZ  NYJQEE  BDYFJO  PTLOEM  EHOM
 rmWSInput = rawInput.replace(" ", "").strip()
 
 EN_IC = 0.67
-EN_REL_FREQ = {'A': 0.08167, 'B': 0.01492, 'C': 0.02782, 'D': 0.04253, 'E': 0.12702, 'F': 0.02228, 'G': 0.02015,
-               'H': 0.06094, 'I': 0.06966, 'J': 0.00153, 'K': 0.00772, 'L': 0.04025, 'M': 0.02406, 'N': 0.06749,
-               'O': 0.07507, 'P': 0.01929, 'Q': 0.00095, 'R': 0.05987, 'S': 0.06327, 'T': 0.09056, 'U': 0.02758,
-               'V': 0.00978, 'W': 0.02360, 'X': 0.00150, 'Y': 0.01974, 'Z': 0.00074}
-
-def plotDict(dict):
-    lists = sorted(dict.items())
-    x, y = zip(*lists)
-    plt.plot(x, y)
-    plt.show()
+englishFreq = {'A': 0.082, 'B': 0.015, 'C': 0.028, 'D': 0.043,
+    'E': 0.127, 'F': 0.022, 'G': 0.020, 'H': 0.061,
+    'I': 0.070, 'J': 0.002, 'K': 0.008, 'L': 0.040,
+    'M': 0.024, 'N': 0.067, 'O': 0.075, 'P': 0.019,
+    'Q': 0.001, 'R': 0.060, 'S': 0.063, 'T': 0.091,
+    'U': 0.028, 'V': 0.010, 'W': 0.023, 'X': 0.001,
+    'Y': 0.020, 'Z': 0.001}
 
 def countLetters(input):
     charFrequency = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'J': 0, 
@@ -74,11 +71,45 @@ def findKeyLength(input):
         if dict_values[i] >= occurances and dict_keys[i] > key:
             occurances = dict_values[i]
             key = dict_keys[i]
+    return int(key)
+
+# chi-square statistics
+def chiSquare(letterOccurance, keyLength, inputLength):
+    freqVal = list(englishFreq.values())
+    sum = []
+    for i in range(0, keyLength):  
+        temp = []
+        values = list(letterOccurance[i].values())
+        for j in range(26):
+            result = 0
+            for k in range(26):
+                result += ((values[((j+k)%26)] - (freqVal[k]*inputLength))**2)/(freqVal[k]*inputLength)
+            temp.append(int(result))
+        sum += [temp]
+    indexSmallest = []
+    for i in range(0, len(sum)):
+        smallest = min(sum[i])
+        indexSmallest.append(sum[i].index(smallest))
+    return indexSmallest
+
+def findKey(input):
+    keyLength = findKeyLength(input)
+    keyLengthSortedText = []
+    letterOccurance = []
+    for i in range(0,len(input)):
+        if len(keyLengthSortedText) < keyLength:
+            keyLengthSortedText.append(input[i])
+        else: 
+            keyLengthSortedText[i % keyLength] += input[i]
+    for i in range(0, keyLength):
+        letterOccurance.append(countLetters(keyLengthSortedText[i]))
+    indexes = chiSquare(letterOccurance, keyLength, len(input))
+    key = []
+    alphabet = list(englishFreq.keys())
+    for i in range(len(indexes)):
+        key.append(alphabet[indexes[i]])
     return key
 
-def splitTextinKeySize(input):
-    key = findKeyLength(input)
-    
 
-splitTextinKeySize(rmWSInput)
 
+print(findKey(rmWSInput))
