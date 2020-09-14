@@ -1,4 +1,5 @@
 import numpy as np
+import re
 
 # takes in an 8-bit block of plaintext and a 10-bit key
 # produces 8-bit block of ciphertext
@@ -84,3 +85,46 @@ def tripleSDES(bitString, rawKey1, rawKey2, decrypt=False):
     thirdRound = SDES(secondRound, rawKey1, decrypt)
     return thirdRound
 
+
+def frombits(bits):
+    chars = []
+    for b in range(int(len(bits) / 8)):
+        byte = bits[b*8:(b+1)*8]
+        chars.append(chr(int(''.join([str(bit) for bit in byte]), 2)))
+    return ''.join(chars)
+
+def bruteForceSDES(message):
+    rounds = len(message)/8
+    pattern = re.compile("^[a-zA-Z]+$")
+    for i in range(2**10):   
+        answer =''
+        tryKey = bin(i).replace('0b', '').zfill(10)
+        start = 0
+        for j in range(int(rounds)):
+            decrypted = SDES(message[start:start+8], tryKey, True)
+            answer += frombits(decrypted)
+            if not pattern.match(answer):
+                break
+            start += 8
+        if pattern.match(answer):
+            return answer
+
+def bruteForceTripleSDES(message):
+    rounds = len(message)/8
+    pattern = re.compile("^[a-zA-Z]+$")
+    for i in range(2**10):   
+        tryKey1 = bin(i).replace('0b', '').zfill(10)
+        for j in range (2**10):  
+            answer = ''
+            start = 0
+            tryKey2 = bin(j).replace('0b', '').zfill(10)
+            for k in range(int(rounds)):
+                decrypted = tripleSDES(message[start:start+8], tryKey1, tryKey2, True)
+                answer += frombits(decrypted)
+                if not pattern.match(answer):
+                    break
+                start += 8
+            if pattern.match(answer):
+                return answer
+
+print(bruteForceTripleSDES(message2))
