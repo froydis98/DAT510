@@ -53,10 +53,8 @@ def Sbox(input, sbox):
 def F(right, key):
     rightPerm = permutation(EP, right)
     XOR = bin( int(rightPerm, 2) ^ int(key, 2))[2:].zfill(8)
-    print(XOR)
     left_sboxed = Sbox(XOR[:int(len(XOR)/2)], S0)
     right_sboxed = Sbox(XOR[int(len(XOR)/2):], S1)
-    print(left_sboxed, right_sboxed)
     return permutation(P4, left_sboxed + right_sboxed)
 
 def fk(bitString, key):
@@ -70,9 +68,8 @@ def sdes_encrypt(bitString, key):
     leftKey = P10key[:int(len(P10key)/2)]
     rightKey = P10key[int(len(P10key)/2):]
     key1, key2 = generateKey(leftKey, rightKey)
-    print(key1, key2)
-    bitString = permutation(IP, bitString)
-    leftFK, rightFK = fk(bitString, key2)
+    bitStringPerm = permutation(IP, bitString)
+    leftFK, rightFK = fk(bitStringPerm, key1)
     leftFK, rightFK = fk(rightFK + leftFK, key2)
     invPerm = permutation(IPinv, leftFK + rightFK)
     return invPerm
