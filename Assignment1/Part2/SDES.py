@@ -1,4 +1,3 @@
-import numpy as np
 import re
 
 # takes in an 8-bit block of plaintext and a 10-bit key
@@ -85,7 +84,6 @@ def tripleSDES(bitString, rawKey1, rawKey2, decrypt=False):
     thirdRound = SDES(secondRound, rawKey1, decrypt)
     return thirdRound
 
-
 def frombits(bits):
     chars = []
     for b in range(int(len(bits) / 8)):
@@ -127,4 +125,4 @@ def bruteForceTripleSDES(message):
             if pattern.match(answer):
                 return answer
 
-print(bruteForceTripleSDES(message2))
+print(tripleSDES('10110110', '1000101110', '0110101110', True))
