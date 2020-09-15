@@ -85,11 +85,11 @@ def tripleSDES(bitString, rawKey1, rawKey2, decrypt=False):
     return thirdRound
 
 def frombits(bits):
-    chars = []
+    output = []
     for b in range(int(len(bits) / 8)):
         byte = bits[b*8:(b+1)*8]
-        chars.append(chr(int(''.join([str(bit) for bit in byte]), 2)))
-    return ''.join(chars)
+        output.append(chr(int(''.join([str(bit) for bit in byte]), 2)))
+    return ''.join(output)
 
 def bruteForceSDES(message):
     rounds = len(message)/8
@@ -124,5 +124,3 @@ def bruteForceTripleSDES(message):
                 start += 8
             if pattern.match(answer):
                 return answer
-
-print(tripleSDES('10110110', '1000101110', '0110101110', True))

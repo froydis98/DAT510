@@ -7,6 +7,7 @@ key1 = '1000101110'
 key2 = '0110101110'
 
 
+#0101110101010111110111001101110001010100 will give Hello
 @app.route('/<input>')
 def decrypt(input):
     start = 0
