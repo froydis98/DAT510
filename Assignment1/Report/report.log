@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.8)  16 SEP 2020 14:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.8)  16 SEP 2020 14:53
 entering extended mode
 **./report.tex
 (report.tex
@@ -254,32 +254,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 64--69
 
 [2 <./code_snippets/findKeyLength.PNG>] [3 <./code_snippets/findIndexOfDuplicat
 es.PNG> <./code_snippets/findFactorialsOnWordIndex.PNG>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 71.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 71.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 71.
-
 <code_snippets/findKey.PNG, id=27, 404.63672pt x 246.5461pt>
 File: code_snippets/findKey.PNG Graphic file (type png)
 
 <use code_snippets/findKey.PNG>
-Package pdftex.def Info: code_snippets/findKey.PNG used on input line 75.
+Package pdftex.def Info: code_snippets/findKey.PNG used on input line 71.
 (pdftex.def)             Requested size: 390.0pt x 237.63333pt.
 
 <code_snippets/countLetters.PNG, id=28, 403.5075pt x 160.34906pt>
 File: code_snippets/countLetters.PNG Graphic file (type png)
 
 <use code_snippets/countLetters.PNG>
-Package pdftex.def Info: code_snippets/countLetters.PNG used on input line 81.
+Package pdftex.def Info: code_snippets/countLetters.PNG used on input line 76.
 (pdftex.def)             Requested size: 390.0pt x 154.98299pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 82.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 82.
 
 <code_snippets/chiSquare.PNG, id=29, 420.06938pt x 258.5911pt>
 File: code_snippets/chiSquare.PNG Graphic file (type png)
 
 <use code_snippets/chiSquare.PNG>
-Package pdftex.def Info: code_snippets/chiSquare.PNG used on input line 87.
+Package pdftex.def Info: code_snippets/chiSquare.PNG used on input line 86.
 (pdftex.def)             Requested size: 390.0pt x 240.08081pt.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -299,7 +298,7 @@ Here is how much of TeX's memory you used:
  5509 multiletter control sequences out of 15000+200000
  9456 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,6n,25p,649b,218s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,6n,25p,837b,218s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts
 /type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
@@ -311,7 +310,7 @@ les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (7 pages, 444114 bytes).
+Output written on report.pdf (7 pages, 447082 bytes).
 PDF statistics:
  83 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

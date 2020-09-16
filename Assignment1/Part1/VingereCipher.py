@@ -100,7 +100,7 @@ def chiSquare(letterOccurance, keyLength, inputLength):
     for i in range(0, len(sum)):
         smallest = min(sum[i])
         indexSmallest.append(sum[i].index(smallest))
-    print(indexSmallest)
+    print('smallest:', indexSmallest)
     return indexSmallest
 
 def findKey(input):
@@ -119,6 +119,7 @@ def findKey(input):
     alphabet = list(englishFreq.keys())
     for i in range(len(indexes)):
         key.append(alphabet[indexes[i]])
+    print(key)
     return key
 
 def vigenereDecrypt(input):
