@@ -1,0 +1,319 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.8)  16 SEP 2020 14:28
+entering extended mode
+**./report.tex
+(report.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo"
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2017/05/19 3.10 The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\babel-english\english.ldf"
+Language: english 2017/01/24 v3.3q English support from the babel system
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2017/05/19 3.10 Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+) (report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count89
+\scratchdimen=\dimen106
+\scratchbox=\box26
+\nofMPsegments=\count90
+\nofMParguments=\count91
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count92
+\MPscratchDim=\dimen107
+\MPnumerator=\count93
+\makeMPintoPDFobject=\count94
+\everyMPtoPDFconversion=\toks16
+) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 10.
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ¸ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ¸ in font cmr12!
+ [1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no © in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--39
+
+ []
+
+
+Overfull \hbox (29.50606pt too wide) in paragraph at lines 19--39
+\OT1/cmr/m/it/12 THECIPHERTEXTISDECIPHERINGORDECRYPTIONTHEMANY SCHEMES 
+ []
+
+
+Overfull \hbox (4.89856pt too wide) in paragraph at lines 19--39
+\OT1/cmr/m/it/12 USEDFORENCRYPTIONCONSTITUTETHEAREAOFSTUDYKNOWNAS
+ []
+
+
+Overfull \hbox (20.54202pt too wide) in paragraph at lines 19--39
+\OT1/cmr/m/it/12 SYSTEMORA CI-PHERTECH-NIQUE-SUSED-FORDE-CI-PHERINGAMES-SAGE 
+ []
+
+
+Overfull \hbox (16.1087pt too wide) in paragraph at lines 19--39
+\OT1/cmr/m/it/12 WITHOUTANY KNOWL-ED-GE-OFTHEEN-CI-PHER-INGDE-TAILS-FALLINTO 
+ []
+
+
+Overfull \hbox (8.63634pt too wide) in paragraph at lines 19--39
+\OT1/cmr/m/it/12 PERSONCALLSBREAKINGTHECODETHEAREASOF CRYP-TOG-RA-PHY 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--39
+
+ []
+
+<code_snippets/findKeyLength.PNG, id=7, 424.20984pt x 285.69234pt>
+File: code_snippets/findKeyLength.PNG Graphic file (type png)
+
+<use code_snippets/findKeyLength.PNG>
+Package pdftex.def Info: code_snippets/findKeyLength.PNG used on input line 43.
+
+(pdftex.def)             Requested size: 390.0pt x 262.66576pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--47
+
+ []
+
+[1]
+Overfull \hbox (205.37402pt too wide) in paragraph at lines 48--49
+\OT1/cmr/m/n/12 spired of one of the an-swers in this stack-over-flow ques-tion
+. [REF https://stackoverflow.com/questions/5419204/index-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
+
+<code_snippets/findIndexOfDuplicates.PNG, id=16, 284.93953pt x 172.77046pt>
+File: code_snippets/findIndexOfDuplicates.PNG Graphic file (type png)
+
+<use code_snippets/findIndexOfDuplicates.PNG>
+Package pdftex.def Info: code_snippets/findIndexOfDuplicates.PNG used on input 
+line 51.
+(pdftex.def)             Requested size: 390.0pt x 236.47266pt.
+
+<code_snippets/findFactorialsOnWordIndex.PNG, id=17, 336.13078pt x 158.84344pt>
+File: code_snippets/findFactorialsOnWordIndex.PNG Graphic file (type png)
+<use code_snippets/findFactorialsOnWordIndex.PNG>
+Package pdftex.def Info: code_snippets/findFactorialsOnWordIndex.PNG used on in
+put line 59.
+(pdftex.def)             Requested size: 390.0pt x 184.30214pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--69
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--69
+
+ []
+
+[2 <./code_snippets/findKeyLength.PNG>] [3 <./code_snippets/findIndexOfDuplicat
+es.PNG> <./code_snippets/findFactorialsOnWordIndex.PNG>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 71.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 71.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 71.
+
+<code_snippets/findKey.PNG, id=27, 404.63672pt x 246.5461pt>
+File: code_snippets/findKey.PNG Graphic file (type png)
+
+<use code_snippets/findKey.PNG>
+Package pdftex.def Info: code_snippets/findKey.PNG used on input line 75.
+(pdftex.def)             Requested size: 390.0pt x 237.63333pt.
+
+<code_snippets/countLetters.PNG, id=28, 403.5075pt x 160.34906pt>
+File: code_snippets/countLetters.PNG Graphic file (type png)
+
+<use code_snippets/countLetters.PNG>
+Package pdftex.def Info: code_snippets/countLetters.PNG used on input line 81.
+(pdftex.def)             Requested size: 390.0pt x 154.98299pt.
+
+<code_snippets/chiSquare.PNG, id=29, 420.06938pt x 258.5911pt>
+File: code_snippets/chiSquare.PNG Graphic file (type png)
+
+<use code_snippets/chiSquare.PNG>
+Package pdftex.def Info: code_snippets/chiSquare.PNG used on input line 87.
+(pdftex.def)             Requested size: 390.0pt x 240.08081pt.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ¢ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ¢ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ¢ in font cmr12!
+ [4] [5 <./code_snippets/findKey.PNG> <./code_snippets/countLetters.PNG>] [6 <.
+/code_snippets/chiSquare.PNG>] (report.aux) ) 
+Here is how much of TeX's memory you used:
+ 1983 strings out of 493323
+ 28022 string characters out of 3139066
+ 94099 words of memory out of 3000000
+ 5509 multiletter control sequences out of 15000+200000
+ 9456 words of font info for 33 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 39i,6n,25p,649b,218s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmti12.pfb>
+Output written on report.pdf (7 pages, 444114 bytes).
+PDF statistics:
+ 83 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -21,8 +21,9 @@ englishFreq = {'A': 0.082, 'B': 0.015, 'C': 0.028, 'D': 0.043,
     'Y': 0.020, 'Z': 0.001}
 
 def countLetters(input):
-    charFrequency = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'J': 0, 
-            'K': 0, 'L': 0, 'M': 0, 'N': 0, 'O': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 
+    charFrequency = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 
+            'G': 0, 'H': 0, 'I': 0, 'J': 0, 'K': 0, 'L': 0, 'M': 0, 
+            'N': 0, 'O': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 
             'U': 0, 'V': 0, 'W': 0, 'X': 0, 'Y': 0, 'Z': 0}
     for i in input:
         if i in charFrequency:
@@ -73,6 +74,7 @@ def findKeyLength(input):
     key = 0
     dict_keys = list(possibleKeyLengths.keys())
     dict_values = list(possibleKeyLengths.values())
+    print(possibleKeyLengths)
     for i in range(0, len(dict_values)):
         if dict_values[i] >= occurances and dict_keys[i] > key:
             occurances = dict_values[i]
@@ -83,19 +85,22 @@ def findKeyLength(input):
 def chiSquare(letterOccurance, keyLength, inputLength):
     freqVal = list(englishFreq.values())
     sum = []
-    for i in range(0, keyLength):  
+    for i in range(0, keyLength):
         temp = []
         values = list(letterOccurance[i].values())
         for j in range(26):
             result = 0
             for k in range(26):
-                result += ((values[((j+k)%26)] - (freqVal[k]*inputLength))**2)/(freqVal[k]*inputLength)
+                result += ((values[((j+k)%26)] - 
+                (freqVal[k]*inputLength))**2)/(freqVal[k]*inputLength)
             temp.append(int(result))
         sum += [temp]
+    print(sum)
     indexSmallest = []
     for i in range(0, len(sum)):
         smallest = min(sum[i])
         indexSmallest.append(sum[i].index(smallest))
+    print(indexSmallest)
     return indexSmallest
 
 def findKey(input):

@@ -1,0 +1,100 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+\title{DAT510 - Assignment 1}
+\author{Frøydis Jørgensen}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+
+\begin{abstract}
+A one-paragraph summary of the entire assignment -your procedure, results, and analysis. 
+\end{abstract}
+
+\section*{Part 1}
+\textbf{The plaintext message you managed to decipher} \\
+\\
+The plaintext message I got when I decrypted the cipher was:\\
+\textit{
+ANORIGINALMESSAGEISKNOWNASTHEPLAINTEXTWHILETHE\\CODEDMESSAGE
+ISCALLEDTHECIPHERTEXTTHEPROCESSOF\\CONVERTINGFROMPLAINTEXT
+TOCIPHERTEXTISKNOWNAS\\ENCIPHERINGORENCRYPTIONRESTORINGTHE
+PLAINTEXTFROM\\THECIPHERTEXTISDECIPHERINGORDECRYPTIONTHEMANY
+SCHEMES\\USEDFORENCRYPTIONCONSTITUTETHEAREAOFSTUDYKNOWNAS
+CRYPTOGRAPHYSUCHASCHEMEISKNOWNASACRYPTOGRAPHIC\\SYSTEMORA
+CIPHERTECHNIQUESUSEDFORDECIPHERINGAMESSAGE\\WITHOUTANY
+KNOWLEDGEOFTHEENCIPHERINGDETAILSFALLINTO\\THEAREAOFCRYPTANALYSIS
+CRYPTANALYSISISWHATTHELAY\\PERSONCALLSBREAKINGTHECODETHEAREASOF
+CRYPTOGRAPHY\\ANDCRYPTANALYSISTOGETHERARECALLEDCRYPTOLOGY}\\
+\\
+\textbf{Describe the strategy you employed, show the details for each of the steps of that strategy, describe any programs you wrote, show sample output of these programs, and show how you transformed that output into your solution.} \\
+\\
+To solve the Poly-aplhabetic Ciphers I started of by determine what kind of cipher algoritm that is used.
+The best-known polyalphabetic cipher is called The Vigenére cipher. It is mainly two steps to decrypt this cipher.
+We have to identify the length of the key, and then find the actual key. 
+
+To find the length of the key I used a test based on the taking the factors of the periods. I needed to find strings that repeated trough the ciphertext and chose to add strings of length 3 and longer. Therefor my outer for-loop starts at 3, as shown in Figure \ref{fig:findKeyLength}. The algorithm searches through the whole ciphertext and if a string with length longer than 3 occurs more than once, we add it to the list \textit{wordsFrequently}. This part of the algorithm did I found here [REF to https://cs.stackexchange.com/questions/79182/im-looking-for-an-algorithm-to-find-unknown-patterns-in-a-string]. 
+\\ \\
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/findKeyLength.PNG}
+  \caption{the function to find key length}
+  \label{fig:findKeyLength}
+\end{figure}
+
+To get the index I used the function \textit{findIndexOfDuplicates} that is higly inspired of one of the answers in this stackoverflow question. [REF https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list]. Figure \ref{fig:findIndexOfDuplicates} shows the function \textit{findIndexOfDuplicates} where the indexes of the substrings is added to a list and returned. \\ \\
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/findIndexOfDuplicates.PNG}
+  \caption{the function to find the indexes of duplicated strings}
+  \label{fig:findIndexOfDuplicates}
+\end{figure}
+
+This method is used in the function \textit{findFactorialsOnWordIndex} as shown in Figure \ref{fig:findFactorialsOnWordIndex}. I then used the distance between the indexes of the repeated words and factorize it. I get the factors when the modulo of the index distance and \textbf{i} is zero. We got information that the key would be no larger that 10, therefore I only collected the factors in the range of 2 to 10.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/findFactorialsOnWordIndex.PNG}
+  \caption{the function to find factorials}
+  \label{fig:findFactorialsOnWordIndex}
+\end{figure}
+
+The next step in Figure \ref{fig:findKeyLength} to find the key length is to count the occurance of the factors. The method I used to find the key length is based on using the highest factor that most often occurs. In this case both 2, 4 and 8 occured 105 times. The if-sentence at the end of Figure \ref{fig:findKeyLength} sets the key to be the highest factor that most often occurs, witch in this case is 8.
+\\ \\
+Now that we know the length of the key we have to find the actual key. We know the period of the Vigenere cipher now is 8, witch means that we have 8 caesar ciphers to break. I chose to use Chi-squared statistic. Chi-squared statistic measures how similar two categorical probability distributions are. In this case I wanted to compare the frequency distribution of the ciphertext characters and the frequency distribution of english.
+\\ \\
+As can see in the first for-loop in Figure \ref{fig:findKey}, I split my cipher in 8 strings, so I get a string witch consist of index [0,8,16,24 ...], [1,9,17, 25 ..], [2,10, 18, 26, ...] and so on. Then I count the occurance of every letter in each of these 8 strings. To do that I use the function \textit{countLetters} as shown in Figure \ref{fig:countLetters}. When I have the letter occurances I send the letter occurances to performe the chi-square statistic and compare it to the english letter frequency. 
+
+The chi-square statistic is based on the formula: 
+$$\sum_{i = Z}^{i = A} (Ci - Ei)^{2}/Ei $$
+Where i is going through all of the letters in the english alphabeth so that \textit{Ca} is the count of letter the A, and \textit{Ea} is the expected count of the letter A.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/findKey.PNG}
+  \caption{the function to find the key}
+  \label{fig:findKey}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/countLetters.PNG}
+  \caption{the function count the occurance of letters}
+  \label{fig:countLetters}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{code_snippets/chiSquare.PNG}
+  \caption{the function to find the smallest index}
+  \label{fig:chiSquare}
+\end{figure}
+
+\section*{Part 2}
+• The result of test cases in Tasks 1 and 2; 
+• The bits making up the keys of the SDES and TripleDES in Task 3; 
+• Describe the filtering strategy you used to know that the keys are correct. 
+
+\section*{Conclusion}
+A short paragraph that restates the objective from your introduction and relates it to your results and discussion and describes any future improvements on your techniques that you would recommend. 
+
+\end{document}
