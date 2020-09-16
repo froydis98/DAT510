@@ -74,7 +74,6 @@ def findKeyLength(input):
     key = 0
     dict_keys = list(possibleKeyLengths.keys())
     dict_values = list(possibleKeyLengths.values())
-    print(possibleKeyLengths)
     for i in range(0, len(dict_values)):
         if dict_values[i] >= occurances and dict_keys[i] > key:
             occurances = dict_values[i]
@@ -95,12 +94,10 @@ def chiSquare(letterOccurance, keyLength, inputLength):
                 (freqVal[k]*inputLength))**2)/(freqVal[k]*inputLength)
             temp.append(int(result))
         sum += [temp]
-    print(sum)
     indexSmallest = []
     for i in range(0, len(sum)):
         smallest = min(sum[i])
         indexSmallest.append(sum[i].index(smallest))
-    print('smallest:', indexSmallest)
     return indexSmallest
 
 def findKey(input):
@@ -119,7 +116,6 @@ def findKey(input):
     alphabet = list(englishFreq.keys())
     for i in range(len(indexes)):
         key.append(alphabet[indexes[i]])
-    print(key)
     return key
 
 def vigenereDecrypt(input):
@@ -130,8 +126,8 @@ def vigenereDecrypt(input):
     inputUnicode = [ord(i) for i in input]
     decryptedText = ''
     for i in range(len(inputUnicode)):
-        value = (inputUnicode[i] - keyUnicode[i % keyLength]) % 26
-        decryptedText += chr(value + 65)
+        unicodeValue = (inputUnicode[i] - keyUnicode[i % keyLength]) % 26
+        decryptedText += chr(unicodeValue + 65)
     elapsed = timeit.default_timer() - start_time
     print(elapsed)
     return decryptedText

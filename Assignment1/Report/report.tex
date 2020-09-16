@@ -1,6 +1,7 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{float}
 
 \title{DAT510 - Assignment 1}
 \author{Frøydis Jørgensen}
@@ -39,7 +40,7 @@ We have to identify the length of the key, and then find the actual key.
 
 To find the length of the key I used a test based on the taking the factors of the periods. I needed to find strings that repeated trough the ciphertext and chose to add strings of length 3 and longer. Therefor my outer for-loop starts at 3, as shown in Figure \ref{fig:findKeyLength}. The algorithm searches through the whole ciphertext and if a string with length longer than 3 occurs more than once, we add it to the list \textit{wordsFrequently}. This part of the algorithm did I found here [REF to https://cs.stackexchange.com/questions/79182/im-looking-for-an-algorithm-to-find-unknown-patterns-in-a-string]. 
 \\ \\
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findKeyLength.PNG}
   \caption{the function to find key length}
   \label{fig:findKeyLength}
@@ -47,7 +48,7 @@ To find the length of the key I used a test based on the taking the factors of t
 
 To get the index I used the function \textit{findIndexOfDuplicates} that is higly inspired of one of the answers in this stackoverflow question. [REF https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list]. Figure \ref{fig:findIndexOfDuplicates} shows the function \textit{findIndexOfDuplicates} where the indexes of the substrings is added to a list and returned. \\ \\
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findIndexOfDuplicates.PNG}
   \caption{the function to find the indexes of duplicated strings}
   \label{fig:findIndexOfDuplicates}
@@ -55,7 +56,7 @@ To get the index I used the function \textit{findIndexOfDuplicates} that is higl
 
 This method is used in the function \textit{findFactorialsOnWordIndex} as shown in Figure \ref{fig:findFactorialsOnWordIndex}. I then used the distance between the indexes of the repeated words and factorize it. I get the factors when the modulo of the index distance and \textbf{i} is zero. We got information that the key would be no larger that 10, therefore I only collected the factors in the range of 2 to 10.
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findFactorialsOnWordIndex.PNG}
   \caption{the function to find factorials}
   \label{fig:findFactorialsOnWordIndex}
@@ -65,14 +66,15 @@ The next step in Figure \ref{fig:findKeyLength} to find the key length is to cou
 \\ \\
 Now that we know the length of the key we have to find the actual key. We know the period of the Vigenere cipher now is 8, witch means that we have 8 caesar ciphers to break. I chose to use Chi-squared statistic. Chi-squared statistic measures how similar two categorical probability distributions are. In this case I wanted to compare the frequency distribution of the ciphertext characters and the frequency distribution of english.
 \\ \\
-As can see in the first for-loop in Figure \ref{fig:findKey}, I split my cipher in 8 strings, so I get a string witch consist of index [0,8,16,24 ...], [1,9,17, 25 ..], [2,10, 18, 26, ...] and so on. Then I count the occurance of every letter in each of these 8 strings. To do that I use the function \textit{countLetters} as shown in Figure \ref{fig:countLetters}. When I have the letter occurances I send the letter occurances to performe the chi-square statistic and compare it to the english letter frequency. 
+As can see in the first for-loop in Figure \ref{fig:findKey}, I split my cipher in 8 strings, so I get a string witch consist of index [0,8,16,24 ...], [1,9,17, 25 ..], [2,10, 18, 26, ...] and so on. Then I count the occurance of every letter in each of these 8 strings. To do that I use the function \textit{countLetters} as shown in Figure \ref{fig:countLetters}. When I have the letter occurances I send the letter occurances to performe the chi-square statistic and compare it to the english letter frequency.
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findKey.PNG}
   \caption{the function to find the key}
   \label{fig:findKey}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/countLetters.PNG}
   \caption{the function count the occurance of letters}
   \label{fig:countLetters}
@@ -80,20 +82,68 @@ As can see in the first for-loop in Figure \ref{fig:findKey}, I split my cipher 
 
 The chi-square statistic is based on the formula: 
 $$\sum_{i = Z}^{i = A} (Ci - Ei)^{2}/Ei $$
-Where i is going through all of the letters in the english alphabeth so that \textit{Ca} is the count of letter the A, and \textit{Ea} is the expected count of the letter A. As shown in Figure \ref{fig:chiSquare} we loop through every letter inside a loop of every letter and we do once for each of the 8 strings we have gotten previously. The chi-square statistic says that the letter with the lowest sum in each of the strings is a part of our key. In this example the \textit{chiSquare} function returns an array of \textbf{[1,3,11,0,4,10,2,24]}. This array tells us at wich index the letters lays on. Since index starts at zero, The first letter will be B. The key is therefore, as we find in the last for-loop in Figure \ref{fig:findKey}, when we convert the indexes back to letters \textbf{BDLAEKCY}.
+Where i is going through all of the letters in the english alphabeth so that \textit{Ca} is the count of letter the A, and \textit{Ea} is the expected count of the letter A. As shown in Figure \ref{fig:chiSquare} we loop through every letter inside a loop of every letter and we do once for each of the 8 strings we have gotten previously. The chi-square statistic says that the letter with the lowest sum in each of the strings is a part of our key. In this example the \textit{chiSquare} function returns an array of \textbf{[1,3,11,0,4,10,2,24]}. This array tells us at wich index the letters lays on. Since index starts at zero, The first letter will be B. The key is therefore, as we find in the last for-loop in Figure \ref{fig:findKey}, when we convert the indexes back to letters \textbf{BDLAEKCY}. \\ \\
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/chiSquare.PNG}
   \caption{the function to find the smallest index}
   \label{fig:chiSquare}
 \end{figure}
 
-With the knowledge of what the key is, the only thing that is lest is to decrypt the actual text. 
+With the knowledge of what the key is, the only thing that is lest is to decrypt the cipher by using the key. A Vingere Cipher is decrypted by only using substitution, therefore it is an easy process of decrypting it when you know the key. As shown in Figure \ref{fig:vigenereDecrypt} I convert the key and the input into a lists of unicodes. Unicode is a superset of ASCII. I go through the cipherUnicode value by value and substract it by the keyUnicode that belongs to the ciphers unicode index. Then We take the modulo of the length of the english alphabeth. This gives us values in the specter of 0 to 25. To convert it back to normal letters I add 65 to the unicodeValue and cast it back to letters. After going through all of the letters we have the decrypted message in plaintext.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/vigenereDecrypt.PNG}
+  \caption{the main function to decrypt vigenere cipher}
+  \label{fig:vigenereDecrypt}
+\end{figure} 
+
+\textbf{Describe the Execution time and impact of the key length on it.}
+
 
 \section*{Part 2}
-• The result of test cases in Tasks 1 and 2; 
-• The bits making up the keys of the SDES and TripleDES in Task 3; 
-• Describe the filtering strategy you used to know that the keys are correct. 
+\textbf{The result of test cases in Tasks 1 and 2}
+
+\subsubsection*{Task 1 results}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Raw key & Plaintext & Ciphertext \\
+ 0000000000 & 00000000 & 11110000 \\ 
+ 0000011111 & 11111111 & 11100001 \\ 
+ 0010011111 & 11111100 & 10011101 \\ 
+ 0010011111 & 10100101 & 10010000 \\ 
+ 1111111111 & 11111111 & 00001111 \\
+ 0000011111 & 00000000 & 01000011 \\
+ 1000101110 & 00111000 & 00011100 \\
+ 1000101110 & 00001100 & 11000010 \\
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Task 2 results}
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ Raw key 1 & Raw key 2 & Plaintext & Ciphertext \\
+1000101110 & 0110101110 & 11010111 & 10111001 \\
+1000101110 & 0110101110 & 10101010 & 11100100 \\
+1111111111 & 1111111111 & 00000000 & 11101011 \\
+0000000000 & 0000000000 & 01010010 & 10000000 \\
+1000101110 & 0110101110 & 11111101 & 11100110 \\
+1011101111 & 0110101110 & 01001111 & 01010000 \\
+1111111111 & 1111111111 & 10101010 & 00000100 \\
+0000000000 & 0000000000 & 00000000 & 11110000\\
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+\textbf{The bits making up the keys of the SDES and TripleDES in Task 3}
+
+
+\textbf{Describe the filtering strategy you used to know that the keys are correct.}
 
 \section*{Conclusion}
 A short paragraph that restates the objective from your introduction and relates it to your results and discussion and describes any future improvements on your techniques that you would recommend. 
