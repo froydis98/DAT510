@@ -75,7 +75,7 @@ def findKeyLength(input):
     dict_keys = list(possibleKeyLengths.keys())
     dict_values = list(possibleKeyLengths.values())
     for i in range(0, len(dict_values)):
-        if dict_values[i] >= occurances and dict_keys[i] > key:
+        if dict_values[i] >= (occurances - (occurances*0.1)) and dict_keys[i] > key:
             occurances = dict_values[i]
             key = dict_keys[i]
     return int(key)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.8)  16 SEP 2020 15:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.8)  20 SEP 2020 15:40
 entering extended mode
 **./report.tex
 (report.tex
@@ -160,10 +160,6 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 11.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 11.
-Missing character: There is no Ã in font cmr12!
-Missing character: There is no ¸ in font cmr12!
-Missing character: There is no Ã in font cmr12!
-Missing character: There is no ¸ in font cmr12!
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
@@ -209,7 +205,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--40
 
  []
 
-<code_snippets/findKeyLength.PNG, id=7, 424.20984pt x 285.69234pt>
+[1] <code_snippets/findKeyLength.PNG, id=14, 424.20984pt x 285.69234pt>
 File: code_snippets/findKeyLength.PNG Graphic file (type png)
 
 <use code_snippets/findKeyLength.PNG>
@@ -226,10 +222,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--47
 
  []
 
-[1]
-Overfull \hbox (205.37402pt too wide) in paragraph at lines 49--50
-\OT1/cmr/m/n/12 spired of one of the an-swers in this stack-over-flow ques-tion
-. [REF https://stackoverflow.com/questions/5419204/index-
+
+Overfull \hbox (223.91272pt too wide) in paragraph at lines 49--50
+\OT1/cmr/m/n/12 in-spired by one of the an-swers in this Stack-Over-flow ques-t
+ion. [REF https://stackoverflow.com/questions/5419204/index-
  []
 
 
@@ -242,14 +238,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
-<code_snippets/findIndexOfDuplicates.PNG, id=16, 284.93953pt x 172.77046pt>
+[2 <./code_snippets/findKeyLength.PNG>]
+<code_snippets/findIndexOfDuplicates.PNG, id=20, 284.93953pt x 172.77046pt>
 File: code_snippets/findIndexOfDuplicates.PNG Graphic file (type png)
 
 <use code_snippets/findIndexOfDuplicates.PNG>
 Package pdftex.def Info: code_snippets/findIndexOfDuplicates.PNG used on input 
 line 52.
 (pdftex.def)             Requested size: 390.0pt x 236.47266pt.
- [2 <./code_snippets/findKeyLength.PNG>]
+
 <code_snippets/findFactorialsOnWordIndex.PNG, id=21, 336.13078pt x 158.84344pt>
 File: code_snippets/findFactorialsOnWordIndex.PNG Graphic file (type png)
 <use code_snippets/findFactorialsOnWordIndex.PNG>
@@ -310,29 +307,64 @@ File: code_snippets/vigenereDecrypt.PNG Graphic file (type png)
 Package pdftex.def Info: code_snippets/vigenereDecrypt.PNG used on input line 9
 6.
 (pdftex.def)             Requested size: 390.0pt x 195.85843pt.
- [7 <./code_snippets/vigenereDecrypt.PNG>] [8] (report.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--106
+
+ []
+
+[7 <./code_snippets/vigenereDecrypt.PNG>] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 161--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--173
+
+ []
+
+[9] [10] (report.aux) ) 
 Here is how much of TeX's memory you used:
  2049 strings out of 493323
  28985 string characters out of 3139066
- 97474 words of memory out of 3000000
+ 98472 words of memory out of 3000000
  5570 multiletter control sequences out of 15000+200000
  9456 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,6n,25p,843b,214s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (9 pages, 506601 bytes).
+ 39i,6n,25p,852b,214s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
+i12.pfb>
+Output written on report.pdf (11 pages, 516693 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
+ 97 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

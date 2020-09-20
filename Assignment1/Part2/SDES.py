@@ -124,3 +124,6 @@ def bruteForceTripleSDES(message):
                 start += 8
             if pattern.match(answer):
                 return answer
+
+print(bruteForceSDES(message1))
+print(bruteForceTripleSDES(message2))
