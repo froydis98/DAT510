@@ -13,6 +13,11 @@ Same as part 1, use the command line.
 ```
 python .\Part2\SDES.py
 ```
+As default this file does not return anything. But if you want to test the different functions you can for example add the lines:
+```
+print(bruteForceSDES(message1))
+print(bruteForceTripleSDES(message2))
+```
 
 To execute the app.py file you need flask. Make sure you have pip. If you don't have pip or are unsure, look here https://phoenixnap.com/kb/install-pip-windows.
 
