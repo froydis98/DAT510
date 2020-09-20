@@ -2,6 +2,7 @@
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{hyperref}
 
 \title{DAT510 - Assignment 1}
 \author{Fr\o ydis J\o rgensen}
@@ -38,7 +39,7 @@ To solve the Poly-alphabetic Ciphers I started by determining what kind of ciphe
 The best-known polyalphabetic cipher is called The Vigenére cipher. It is mainly two steps to decrypt this cipher.
 We have to identify the length of the key and then find the actual key. 
 
-To find the length of the key I used a test based on taking the factors of the periods. I needed to find strings that repeated trough the ciphertext and chose to add strings of length 3 and longer. Therefore my outer for-loop starts at 3, as shown in Figure \ref{fig:findKeyLength}. The algorithm searches through the whole ciphertext and if a string with length longer than 3 occurs more than once, we add it to the list \textit{wordsFrequently}. This part of the algorithm did I found here [REF to https://cs.stackexchange.com/questions/79182/im-looking-for-an-algorithm-to-find-unknown-patterns-in-a-string].
+To find the length of the key I used a test based on taking the factors of the periods. I needed to find strings that repeated trough the ciphertext and chose to add strings of length 3 and longer. Therefore my outer for-loop starts at 3, as shown in Figure \ref{fig:findKeyLength}. The algorithm searches through the whole ciphertext and if a string with length longer than 3 occurs more than once, we add it to the list \textit{wordsFrequently}. This part of the algorithm did I found here \cite{SE}.
 \\ \\
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findKeyLength.PNG}
@@ -46,7 +47,7 @@ To find the length of the key I used a test based on taking the factors of the p
   \label{fig:findKeyLength}
 \end{figure}
 
-To get the index I used the function \textit{findIndexOfDuplicates} that is highly inspired by one of the answers in this StackOverflow question. [REF https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list]. Figure \ref{fig:findIndexOfDuplicates} shows the function \textit{findIndexOfDuplicates} where the indexes of the substrings is added to a list and returned. \\ \\
+To get the index I used the function \textit{findIndexOfDuplicates} that is highly inspired by one of the answers in this StackOverflow question, \cite{SO}. Figure \ref{fig:findIndexOfDuplicates} shows the function \textit{findIndexOfDuplicates} where the indexes of the substrings is added to a list and returned. \\ \\
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/findIndexOfDuplicates.PNG}
@@ -82,7 +83,7 @@ As can see in the first for-loop in Figure \ref{fig:findKey}, I split my cipher 
 
 The chi-square statistic is based on the formula: 
 $$\sum_{i = Z}^{i = A} (Ci - Ei)^{2}/Ei $$
-Where i is going through all of the letters in the English alphabet so that \textit{Ca} is the count of the letter the A, and \textit{Ea} is the expected count of the letter A. As shown in Figure \ref{fig:chiSquare} we loop through every letter inside a loop of every letter and we do once for each of the 8 strings we have gotten previously. The chi-square statistic says that the letter with the lowest sum in each of the strings is a part of our key. In this example the \textit{chiSquare} function returns an array of \textbf{[1,3,11,0,4,10,2,24]}. This array tells us at which index the letters lays on. Since the index starts at zero, The first letter will be B. The key is, therefore, as we find in the last for-loop in Figure \ref{fig:findKey}, when we convert the indexes back to letters \textbf{BDLAEKCY}. \\ \\
+Where i is going through all of the letters in the English alphabet so that \textit{Ca} is the count of the letter the A, and \textit{Ea} is the expected count of the letter A. As shown in Figure \ref{fig:chiSquare} we loop through every letter inside a loop of every letter and we do once for each of the 8 strings we have gotten previously. The chi-square statistic says that the letter with the lowest sum in each of the strings is a part of our key \cite{chi}. In this example the \textit{chiSquare} function returns an array of \textbf{[1,3,11,0,4,10,2,24]}. This array tells us at which index the letters lays on. Since the index starts at zero, The first letter will be B. The key is, therefore, as we find in the last for-loop in Figure \ref{fig:findKey}, when we convert the indexes back to letters \textbf{BDLAEKCY}. \\ \\
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/chiSquare.PNG}
@@ -174,6 +175,17 @@ I used the same strategy as for SDES. But tripleSDES needs two 10 bits keys. So 
 
 \section*{Conclusion}
 This assignment was a real challenge, but by doing some research on vigenere ciphers and following the recipe on SDES it was possible to decrypt the ciphers. If I should continue working on my programs I would like to make my vigenere cipher algorithm good enough to handle longer keys and still get the correct plaintext. When it comes to SDES and tripleSDES I think it's many ways to optimize the execution time so that tripleSDES don't use 3 minutes to decrypt one sentence. 
+
+\newpage
+\begin{thebibliography}{10} 
+\bibitem{SE} StackExchange., \emph{Algorithm to find unknown patterns in a string},
+\url{https://cs.stackexchange.com/questions/79182/im-looking-for-an-algorithm-to-find-unknown-patterns-in-a-string}.
+\bibitem{SO} StackOverflow, . \emph{Index of duplicated items},
+\url{https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list}
+\bibitem{chi} Practical cryptography, . \emph{Chi-squared Statistic},
+\url{http://practicalcryptography.com/cryptanalysis/text-characterisation/chi-squared-statistic/#javascript-chi-squared-calculator}
+\end{thebibliography}
+
 
 
 \end{document}
