@@ -125,5 +125,3 @@ def bruteForceTripleSDES(message):
             if pattern.match(answer):
                 return answer
 
-print(bruteForceSDES(message1))
-print(bruteForceTripleSDES(message2))
