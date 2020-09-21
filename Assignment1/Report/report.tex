@@ -37,7 +37,7 @@ CRYPTOGRAPHY\\ANDCRYPTANALYSISTOGETHERARECALLEDCRYPTOLOGY}\\
 \\
 To solve the Poly-alphabetic Ciphers I started by determining what kind of cipher algorithm that is used.
 The best-known polyalphabetic cipher is called The Vigenére cipher. It is mainly two steps to decrypt this cipher.
-We have to identify the length of the key and then find the actual key. 
+We have to identify the length of the key and then find the actual key. \cite{vigenere}
 
 To find the length of the key I used a test based on taking the factors of the periods. I needed to find strings that repeated trough the ciphertext and chose to add strings of length 3 and longer. Therefore my outer for-loop starts at 3, as shown in Figure \ref{fig:findKeyLength}. The algorithm searches through the whole ciphertext and if a string with length longer than 3 occurs more than once, we add it to the list \textit{wordsFrequently}. This part of the algorithm did I found here \cite{SE}.
 \\ \\
@@ -63,7 +63,7 @@ This method is used in the function \textit{findFactorialsOnWordIndex} as shown 
   \label{fig:findFactorialsOnWordIndex}
 \end{figure}
 
-The next step in Figure \ref{fig:findKeyLength} to find the key length is to count the occurrence of the factors. The method I used to find the key length is based on using the highest factor that most often occurs. In this case, both 2, 4, and 8 occurred 105 times. The if-sentence at the end of Figure \ref{fig:findKeyLength} sets the key to be the highest factor that most often occurs, which in this case is 8.
+The next step in Figure \ref{fig:findKeyLength} to find the key length is to count the occurrence of the factors. The method I used to find the key length is based on using the highest factor that most often occurs. In this case, both 2, 4, and 8 occurred 105 times. I added a 10\% margin, because sometimes a factor occurs often at smaller numbers without it being the actual key. The if-sentence at the end of Figure \ref{fig:findKeyLength} sets the key to be the highest factor that most often occurs, which in this case is 8.
 \\ \\
 Now that we know the length of the key we have to find the actual key. We know the period of the Vigenere cipher now is 8, which means that we have 8 caesar ciphers to break. I chose to use the Chi-squared statistic. The chi-squared statistic measures how similar two categorical probability distributions are. In this case, I wanted to compare the frequency distribution of the ciphertext characters and the frequency distribution of English.
 \\ \\
@@ -91,7 +91,7 @@ Where i is going through all of the letters in the English alphabet so that \tex
   \label{fig:chiSquare}
 \end{figure}
 
-With the knowledge of what the key is, the only thing that is lest is to decrypt the cipher by using the key. A Vingere Cipher is decrypted by only using substitution, therefore it is an easy process of decrypting it when you know the key. As shown in Figure \ref{fig:vigenereDecrypt} I convert the key and the input into a list of Unicodes. Unicode is a superset of ASCII. I go through the cipherUnicode value by value and subtract it by the keyUnicode that belongs to the cipher's Unicode index. Then We take the modulo of the length of the English alphabet. This gives us values in the specter of 0 to 25. To convert it back to normal letters I add 65 to the Unicode value and cast it back to letters. After going through all of the letters we have the decrypted message in plaintext.
+With the knowledge of what the key is, the only thing that is left is to decrypt the cipher by using the key. A Vingere Cipher is decrypted by only using substitution, therefore it is an easy process of decrypting it when you know the key. As shown in Figure \ref{fig:vigenereDecrypt} I convert the key and the input into a list of Unicodes. Unicode is a superset of ASCII. I go through the cipherUnicode value by value and subtract it by the keyUnicode that belongs to the cipher's Unicode index. Then We take the modulo of the length of the English alphabet. This gives us values in the specter of 0 to 25. To convert it back to normal letters I add 65 to the Unicode value and cast it back to letters. After going through all of the letters we have the decrypted message in plaintext.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/vigenereDecrypt.PNG}
@@ -101,7 +101,7 @@ With the knowledge of what the key is, the only thing that is lest is to decrypt
 
 
 When it comes to task 3, which had been encrypted by the same key as the previous ciphertext with an addition in the encryption process, it did not work to use the same tool as created for Task 1. This is probably because it's added substitution or permutation, which means it's not encrypted by the vigenere cipher. When I use the same key to decrypt the cipher I get the first 7 characters correct, but the rest of the text is gibberish.
-\\ \\
+\newpage 
 \textbf{Describe the Execution time and impact of the key length on it.}
 \\ \\
 \begin{center}
@@ -120,7 +120,7 @@ When it comes to task 3, which had been encrypted by the same key as the previou
 \end{tabular}
 \end{center}
 
-According to my numbers, there is no significant difference in the execution time when the keys are at length between 2 and 30. The numbers are also most likely affected by the capacity of my computer is that exact moment which makes the numbers less valuable. My algorithm does not work very accurately when the key length is bigger than 30, so when I tried with a key length of 100 it gave me the wrong plaintext. As you can see the execution time did increase, but it is not much slower overall and the inaccuracy of my computer can misleading. Overall I think you need a really large key to make any significant difference in the execution time, and the capacity of the computer probably makes the biggest difference.
+According to my numbers, there is no significant difference in the execution time when the keys are at length between 2 and 30. The numbers are also most likely affected by the capacity of my computer is that exact moment which makes the numbers less valuable. My algorithm does not work very accurately when the key length is bigger than 30, so when I tried with a key length of 100 it gave me the wrong plaintext. This is typical for Vigenere Ciphers, because it is harder to solve the longer the key relativly to the ciphertext. As you can see the execution time did increase, but it is not much slower overall and the inaccuracy of my computer can misleading. Overall I think you need a really large key to make any significant difference in the execution time, and the capacity of the computer probably makes the biggest difference.
 \newpage
 \section*{Part 2}
 \textbf{The result of test cases in Tasks 1 and 2}
@@ -178,12 +178,14 @@ This assignment was a real challenge, but by doing some research on vigenere cip
 
 \newpage
 \begin{thebibliography}{10} 
-\bibitem{SE} StackExchange., \emph{Algorithm to find unknown patterns in a string},
+\bibitem{SE} StackExchange,  \emph{Algorithm to find unknown patterns in a string},
 \url{https://cs.stackexchange.com/questions/79182/im-looking-for-an-algorithm-to-find-unknown-patterns-in-a-string}.
-\bibitem{SO} StackOverflow, . \emph{Index of duplicated items},
+\bibitem{SO} StackOverflow, \emph{Index of duplicated items},
 \url{https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list}
-\bibitem{chi} Practical cryptography, . \emph{Chi-squared Statistic},
+\bibitem{chi} Practical cryptography, \emph{Chi-squared Statistic},
 \url{http://practicalcryptography.com/cryptanalysis/text-characterisation/chi-squared-statistic/#javascript-chi-squared-calculator}
+\bibitem{vigenere} Practical cryptography, \emph{Cryptoanalysis of the Vigenere Cipher},
+\url{http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-vigenere-cipher/}
 \end{thebibliography}
 
 

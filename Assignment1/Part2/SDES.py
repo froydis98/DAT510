@@ -125,3 +125,5 @@ def bruteForceTripleSDES(message):
             if pattern.match(answer):
                 return answer
 
+SDES(cipher, key)
+
