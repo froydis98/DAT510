@@ -1,3 +1,4 @@
+import SDES
 # q should be 256 bits
 # p should be 1024 bits
 # p-1 , has a large prime divisor q
@@ -15,18 +16,18 @@ def CSPRNG_BBS(seed, size):
     M = p*q
     bit_output = ""
     for _ in range(size):
-        seed = seed*seed % M
+        seed = (seed**2) % M
         b = seed % 2
         bit_output += str(b)
-    return int(bit_output, 2)
+    return bit_output
 
 def main():
     g = 2
-    sharedPrime = 353
+    sharedPrime = 421
     print("The shared prime is ", sharedPrime)
     print("The generator (g) is ", g)
-    alicePrivate = 143
-    bobPrivate = 23
+    alicePrivate = 71
+    bobPrivate = 53
     print("Alice's private key is ", alicePrivate)
     print("Bob's private key is ", bobPrivate)
     alicePublic = publicKey(alicePrivate, g, sharedPrime)
@@ -37,8 +38,13 @@ def main():
     bobShared = sharedKey(alicePublic, bobPrivate, sharedPrime)
     print("Alice's shared key is ", aliceShared)
     print("Bob's shared key is ", bobShared)
-    CSPRNG = CSPRNG_BBS(aliceShared, 20)
-    print("Stronger secret key is ", CSPRNG)
+    if aliceShared == bobShared:
+        secretKeyBit = CSPRNG_BBS(aliceShared, 20)
+        secretKey = int(secretKeyBit, 2)
+        print("Stronger secret key is ", secretKey)
+    else:
+        print("Something went wrong")
+    
 
 
 if __name__ == "__main__":

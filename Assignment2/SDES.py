@@ -124,5 +124,3 @@ def bruteForceTripleSDES(message):
                 start += 8
             if pattern.match(answer):
                 return answer
-
-
