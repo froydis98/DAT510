@@ -3,19 +3,26 @@ from SDES import SDES, frombits
 from SecureCommunication import publicKey, sharedKey, CSPRNG_BBS
 import requests
 
+# This server represents Alice's side of the communication
+
 app = Flask(__name__)
 
+# The predefined values that both Alice and Bob knows
 g = 2
 sharedPrime = 683
+
+# Alice's private key, which is secret
 alicePrivate = 217
 
 secretKeyBit = ""
 encrypted = ''
 
+# The first page, which is just informative and links you to create the secret key with Bob
 @app.route('/')
 def index():
     return '<h1>Hi Alice, this is a page where you can communicate with Bob through a secure channel</h1><h2>To connect to Bob, <a href="/getPub">click here</a>'
 
+# Going to this page will automaticly fetch Bob's public key and create the secret key and a secure communication
 @app.route('/getPub', methods=['GET'])
 def getPub():
     bobPub = requests.get("http://127.0.0.1:5000/sendPub")
@@ -28,10 +35,14 @@ def getPub():
     else:
         return 'No response, could not connect Bob'
 
+# This page is for Bob to fetch so he get's Alice's public key
 @app.route('/sendPub')
 def generatePublicKey():
     return f'{publicKey(alicePrivate, g, sharedPrime)}'
 
+# At this page you can write in a message and send it to Bob.
+# There can only be one message sent at a time.
+# Before the message is sent, it is encrypted by using SDES from Assignment 1 and the shared secret key
 @app.route('/sendMsg', methods=['POST', 'GET'])
 def sendMessage():
     if secretKeyBit == '':
@@ -45,11 +56,13 @@ def sendMessage():
             encrypted += (SDES(messageBits[i], secretKeyBit))
     return render_template('sendMsg.html', title="Send message")
 
+# This page is for Bob to fetch to see if Alice have sent any messages
 @app.route('/sentMsg')
 def sentMessage():
     global encrypted
     return encrypted
 
+# Here we fetch Bob's message if there is some and decrypt it.
 @app.route('/getMsg', methods=['GET'])
 def getMessage():
     if secretKeyBit == '':
@@ -67,6 +80,6 @@ def getMessage():
     else:
         return "There is no message"
 
-
+# We run this server at port 3000 so it does not crash or overwrite the other server
 if __name__ == "__main__":
     app.run(host='127.0.0.1',port=3000, debug=True)
