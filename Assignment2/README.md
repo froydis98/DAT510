@@ -35,7 +35,11 @@ This should be done in another terminal, so that they don't overwrite each other
 Alice's server will be at port 3000. http://127.0.0.1:3000
 
 You can follow the instructions on the web page, or follow the steps here:
+
 Go to /getPub to create the secure communication with the other part.
+
 After generating the secret key:
+
 Go to /sendMsg to send messages to the other part
+
 Go to /getMsg to see if you have gotten any messages from the other part
