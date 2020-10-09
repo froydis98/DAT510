@@ -34,7 +34,7 @@ def main():
     g = 2
     # The shared prime is a Sophie Germain prime
     sharedPrime = 683
-    print("The shared prime is ", sharedPrime)
+    print("The shared prime is ", sharedPrime, '. Which gives us the cyclic group: Z*', sharedPrime)
     print("The generator (g) is ", g)
     # Alice and Bob's private keys which is secret.
     alicePrivate = 217
