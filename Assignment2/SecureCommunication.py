@@ -57,7 +57,11 @@ def main():
     secretKeyBit = CSPRNG_BBS(aliceShared, 10)
     secretKey = int(secretKeyBit, 2)
     print("Stronger secret key is ", secretKey)
-    message = "This is a super secret message"
+    yesOrNo = input("Do you want to send a predefined message? y/n: ")
+    if yesOrNo == 'y' or yesOrNo == 'Y' or yesOrNo == 'yes':
+        message = "This is a super secret message"
+    else:
+        message = input("Write your own message to Bob: ")
     print("Alices message is: ", message)
     # Converts the message into bits
     messageBits = ' '.join(format(ord(x), 'b').zfill(8) for x in message).split(' ')
