@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # The predefined values that both Alice and Bob knows
 g = 2
-sharedPrime = 683
+sharedPrime = 719
 
 # Alice's private key, which is secret
 alicePrivate = 217

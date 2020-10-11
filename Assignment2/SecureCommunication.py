@@ -14,7 +14,7 @@ def CSPRNG_BBS(seed, size):
     p = 7
     q = 11
     M = p*q
-    bit_output = ""
+    bits = ""
     for _ in range(size):
         if seed < 2:
             return "The seed can't be 0 or 1"
@@ -25,15 +25,15 @@ def CSPRNG_BBS(seed, size):
                     return "p and q can not be factors of the seed"
         seed = (seed**2) % M
         b = seed % 2
-        bit_output += str(b)
-    return bit_output
+        bits += str(b)
+    return bits
 
 # Part 1
 def main():
     # the generator g is pre defined as 2
     g = 2
-    # The shared prime is a Sophie Germain prime
-    sharedPrime = 683
+    # The shared prime is a Safe prime, decided by 2q+1, where q is a Sophie Germain prime
+    sharedPrime = 719
     print("The shared prime is ", sharedPrime, '. Which gives us the cyclic group: Z*', sharedPrime)
     print("The generator (g) is ", g)
     # Alice and Bob's private keys which is secret.
@@ -50,13 +50,17 @@ def main():
     # If they not have the same number they do not use the same prime and generator
     aliceShared = sharedKey(bobPublic, alicePrivate, sharedPrime)
     bobShared = sharedKey(alicePublic, bobPrivate, sharedPrime)
-    print("Alice's shared key is ", aliceShared)
-    print("Bob's shared key is ", bobShared)
+    if aliceShared == bobShared:
+        print("Alice's shared key is ", aliceShared)
+        print("Bob's shared key is ", bobShared)
+    else:
+        print("Something went wrong")
     # Uses the pseudo-random number generator Blum Blum Shub to strengthen the key
     # We choose how many bits long we want the key to be. In this case I chose 10
     secretKeyBit = CSPRNG_BBS(aliceShared, 10)
     secretKey = int(secretKeyBit, 2)
     print("Stronger secret key is ", secretKey)
+    # You can either used my predefined message or write your own message to Bob
     yesOrNo = input("Do you want to send a predefined message? y/n: ")
     if yesOrNo == 'y' or yesOrNo == 'Y' or yesOrNo == 'yes':
         message = "This is a super secret message"
