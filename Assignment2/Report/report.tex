@@ -38,7 +38,7 @@ The first step is to decide on some global parameters for a Diffie-Hellman-like 
 The second step is to follow the Diffie-Hellman's key exchange scheme and create Alice and Bobs key pair. For their private key I just chose a random number, so Alice's private key is 217 and Bob's private key is 131. The only requirements for the private keys is that they are smaller than their shared prime and a positive natural number. To create the public key from the private key I created a method, which is shown in Figure \ref{fig:step2_func}. To create the public key, the function does this operation: $$g^{privateKey}\ mod\ sharedPrime$$
 
 \begin{figure}[H]
-  \includegraphics[width=300px]{code_snippets/step2_func.PNG}
+  \includegraphics[width=300px]{code_snippets/step2_func.PNG}\centering
   \caption{The function to create the public key}
   \label{fig:step2_func}
 \end{figure}
@@ -56,7 +56,7 @@ The third step is to send the public key to the part you want to connect with. S
 The fourth step is to create a shared key. The shared key is created as shown in Figure \ref{fig:step4_func} by doing this operation: $$publickey^{privateKey} \ mod \ sharedPrime$$
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{code_snippets/step4_func.PNG}
+  \includegraphics[width=300px]{code_snippets/step4_func.PNG}\centering
   \caption{The function to create the shared secret key}
   \label{fig:step4_func}
 \end{figure}
@@ -97,14 +97,68 @@ The next step is for Bob to decrypt the message from Alice. At this point we alr
 I have now shown a secure communication scenario between Alice and Bob. If someone else would have gotten the cipher, they could not have deciphered it, because the key was created from both Alice's private key and Bob's private key and their shared prime, which is a secret. 
 
 \subsection*{Part 2}
+The second part of this assignment is to connect Alice's and Bob's servers and generate a shared secret key and then send messages to each other in a secure way. Since we do this on localhost I needed to run the localhosts on two different ports. Therefore, Alice's localhost is ran on port 3000, and Bob's on port 5000. To run these I use both bash and powershell, so that they don't overwrite each other. Alice's and Bob's servers are very similar. They have the same pages and functions. The main difference is that they have different defined private keys, and therefore different public keys, but they have the same Prime and generator. For simplicity, I have used the same numbers as in Part 1. The first page you get to when you have started the localhost's http://127.0.0.1:3000 and http://127.0.0.1:5000 returns a text with an url to /getPub, if you want to create a secure connection with the other server. 
+\\
+When Bob directs to /getPub the code as shown in Figure \ref{fig:getPub} will be executed. This starts of by fetching Alice's public key, which he get's from Alice's server at /sendPub, as shown in Figure \ref{fig:sendPub}, which uses the function shown in Figure \ref{fig:step2_func}. If Bob get's a response from Alice's server he uses the sharedKey function which is shown in Figure \ref{fig:step4_func} and then the Blum Blum Shub function which is shown in Figure \ref{fig:step5}. This creates the secret key and he now have the key to encrypt messages to Alice. The page returns a text saying that he have a secure connection with Alice and a link to /sendMsg if he want's to send Alice a message.
 
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/getPub.PNG}
+  \caption{Bob's server: Fetches Alices public key and creates the shared secret key}
+  \label{fig:getPub}
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/sendPub.PNG}
+  \caption{Alice's server: creates Alice's public key and returns it}
+  \label{fig:sendPub}
+\end{figure}
+
+If Bob goes to /sendMsg before he has established a secure connection with Alice, he will be told that he first have to go to /getPub before he can send a message. If the secure connection has been established a simple template as shown in Figure \ref{fig:temp}, which gives a input field to write a message and a submit button. I have used Bootstrap to make the page a bit prettier.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/temp.PNG}
+  \caption{The template that shows an input field to write a message and a submit button}
+  \label{fig:temp}
+\end{figure}
+
+If Bob writes a message and clicks enter or submit, the message will be encrypted using SDES with the secret key from Diffie-Hellman key exchange. As shown in Figure \ref{fig:sendMsg}, if there is some text in the message field the message gets converted into 8 bits block and encrypted. I do not hold any history of the previous messages, so if Bob writes a new message for Alice, it will overwrite the previous message.
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/sendMsg.PNG}
+  \caption{If a message is sent it will be encrypted}
+  \label{fig:sendMsg}
+\end{figure}
+
+When a message is submitted from Bob and it is encrypted, the cipher will be returned at /sentMsg, as shown in Figure \ref{fig:sentMsg}. That is the endpoint Alice want's to fetch to get the messages from Bob.
+
+\begin{figure}[H]
+  \includegraphics[width=150px]{code_snippets/sentMsg.PNG}\centering
+  \caption{The fetching point for the other server to get the encrypted message}
+  \label{fig:sentMsg}
+\end{figure}
+
+When Alice want's to see if there is a message from Bob, she will go to /getMsg. As for all pages, if you want to connect to the other server, you need a secure connection and if you do not have that, you will just get a message to go to /getPub. If Alice have a secure connection with Bob her server will fetch Bob's /sentMsg, as shown in Figure \ref{fig:getMsg}. The result from the fetch will be split into 8 bit blocks and decrypted using SDES and theit shared secret key. If there is no message and nothing have been decrypted there will be displayed a message telling that there is no message, but if you want to send one to Bob, go to /sendMsg. If there is a message from Bob, the message will be displayed in a <h3> bracket, so that it is clear what the message is. 
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/getMsg.PNG}
+  \caption{Will fetch and display the messages from Bob if there is any}
+  \label{fig:getMsg}
+\end{figure}
+
+The code on both Alice's and Bob's side are very similar. The differences is the messages displayed and the port they are fetching from. So Alice can send messages to Bob and vice versa. If Alice has created a secure connection with Bob, she can send messages, but Bob can't get the messages before he has a secure connection as well. Without the secure connection they cannot encrypt or decrypt the messages. 
 
 \section*{Test results}
 Results of testing the software, as you observed/recorded them. Note that this section is only for
 observations you make during testing. Your analysis belongs in the Discussion section.
+\subsection*{Part 1}
+
+\subsection*{Part 2}
 
 \section*{Discussion}
 Your analysis of what your testing results mean, and your analysis.
+\subsection*{Part 1}
+
+\subsection*{Part 2}
 
 \section*{Conclusion}
 A short paragraph that restates the objective from your introduction and relates it to your results
