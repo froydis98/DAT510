@@ -145,18 +145,81 @@ When Alice want's to see if there is a message from Bob, she will go to /getMsg.
   \label{fig:getMsg}
 \end{figure}
 
-The code on both Alice's and Bob's side are very similar. The differences is the messages displayed and the port they are fetching from. So Alice can send messages to Bob and vice versa. If Alice has created a secure connection with Bob, she can send messages, but Bob can't get the messages before he has a secure connection as well. Without the secure connection they cannot encrypt or decrypt the messages. 
+The code on both Alice's and Bob's side are, as said, very similar. The differences is the messages displayed and the port they are fetching from. So Alice can send messages to Bob and vice versa. If Alice has created a secure connection with Bob, she can send messages, but Bob can't get the messages before he has a secure connection as well. Without the secure connection they cannot encrypt or decrypt the messages. 
 
 \section*{Test results}
-Results of testing the software, as you observed/recorded them. Note that this section is only for
-observations you make during testing. Your analysis belongs in the Discussion section.
+
 \subsection*{Part 1}
+In Figure \ref{fig:runYN} you can see the result of the staged scenario of creating a secure connection using Diffie-Hellman key exchange and Blum Blum Shub. First we display the information about the shared prime, the cyclic group and the generator. Then we see the private key's to Alice and Bob, followed by their public key. If the Diffie-Hellmann key exchange goes wrong the shared key won't be printed. But as you can see in the Figure, it was successful and Alice and Bob have the same shared key, as expected. You now have the option to send a predefined message or writing your own message.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/runYN.PNG}
+  \caption{The terminal printing the public and private parameters}
+  \label{fig:runYN}
+\end{figure}
+
+In Figure \ref{fig:runY} you see the result of using the predefined message \textit{this is a super secret message}. I have also printed the encrypted message in binary. The last line shows the message after being by Bob. And as you can see we got the expected result 
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/runY.PNG}
+  \caption{The terminal printing the encryption and decryption with a predefined message}
+  \label{fig:runY}
+\end{figure}
+
+I have added the opportunity to write your own message, and an example of that is shown in Figure \ref{fig:runN}. We still get the expected result.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/runN.PNG}
+  \caption{The terminal printing the encryption and decryption taking in the message as input}
+  \label{fig:runN}
+\end{figure}
+
 
 \subsection*{Part 2}
+Starting up the two servers will look like shown in Figure \ref{fig:front}. The link will move you on to /getpub to do the Diffie-hellman key exchange and create a secure connection.
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/front.PNG}
+  \caption{The homepage}
+  \label{fig:front}
+\end{figure}
+
+When you go to /getpub and get the message as shown in Figure \ref{fig:getpubpage}, it means that you successfully fetched the other parts public key and the Diffie-Hellmann key exchange went as expected. When the secure connection is established you get a link to the /sendMsg page.
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/getpubpage.PNG}
+  \caption{The page to establish a secure connection}
+  \label{fig:getpubpage}
+\end{figure}
+
+At the /sendMsg page you can write a message in the input field as shown in Figure \ref{fig:sendmsgpage}. After writing some message and clicking enter or the Send button the input field will be cleared and the message is sent. There is also a link under the input field where you can click to see if you have gotten any messages from the other server.
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/sendmsgpage.PNG}
+  \caption{The page where you can send messages}
+  \label{fig:sendmsgpage}
+\end{figure}
+
+Figure \ref{fig:getmsg} shows how it will look if you have gotten a message. If there is no message it will be displayed "There is no message" instead. Regardless of whether it is a message or not, there will be a link to /sendMsg. 
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/getmsgpage.PNG}
+  \caption{The page where you can see the message if there is one}
+  \label{fig:getmsg}
+\end{figure}
+
+If you try to go to some other page than /getPub to start of with, you will get always get the message that is shown in Figure \ref{fig:notsecure}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/notsecure.PNG}
+  \caption{The message shown if you have not done Diffie-Hellman key exchange by going to /getPub}
+  \label{fig:notsecure}
+\end{figure}
 
 \section*{Discussion}
 Your analysis of what your testing results mean, and your analysis.
 \subsection*{Part 1}
+
 
 \subsection*{Part 2}
 
