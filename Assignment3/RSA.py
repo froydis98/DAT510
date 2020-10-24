@@ -1,11 +1,5 @@
-p = 11
-q = 13
-n = p*q
-
 def totient(p, q):
     return (p-1) * (q-1)
-
-phi = totient(p, q)
 
 def findCorrectPrimeGCD(n, phi):
     for num in range(n, 2, -1):
@@ -18,8 +12,6 @@ def findCorrectPrimeGCD(n, phi):
                     gcd = i
                 if(gcd == 1):
                     return num
-
-e = 7
 
 def egcd(a, b):
     if a == 0:
@@ -35,7 +27,11 @@ def modinv(a, m):
     else:
         return x % m
 
-d = modinv(e, phi)
+def generateKeys(p, q, n):
+    phi = totient(p, q)
+    e = findCorrectPrimeGCD(n, phi)
+    d = modinv(e, phi)
+    return phi, e, d
 
 def encrypt(message, e, n):
     return message**e % n
@@ -43,21 +39,16 @@ def encrypt(message, e, n):
 def decrypt(cipher, d, n):
     return cipher**d % n
 
-message = "9"
-messageBits = ' '.join(format(ord(x), 'b').zfill(8) for x in message).split(' ')
+def main():
+    p = 11
+    q = 13
+    n = p*q
+    phi, e, d = generateKeys(p, q, n)
+    message = 9
+    cipher = encrypt(message, e, n)
+    decrypted = decrypt(cipher, d, n)
+    print(decrypted)
 
-def frombits(bits):
-    output = []
-    for b in range(0, len(bits)):
-        output.append(chr(int(bits[b], 2)))
-    return ''.join(output)
-
-frombitsmessage = frombits(messageBits)
-print(int(''.join(messageBits), 2))
-cipher = encrypt(int(''.join(messageBits), 2), e, n)
-print(cipher)
-decipher = decrypt(cipher, d, n)
-print(decipher)
-de = bin(decipher)[2:]
-plaintext = frombits(de)
-print(plaintext)
+if __name__ == "__main__":
+    main()
+    
