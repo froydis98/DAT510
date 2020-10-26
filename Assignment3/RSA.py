@@ -37,31 +37,29 @@ def mult_inv(e,phi):
 def verifySignature(signature, message, e, n):
     ourHash = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
     hashFromSignature = pow(signature, e, n)
-    print(ourHash, hashFromSignature)
     if ourHash == hashFromSignature:
         print('The signature is verified')
         return True
     else:
-        print('Something went wrong, maybe there is a man in the middle? Not trust this')
+        print('Something went wrong, maybe there is a man in the middle? Do not trust this')
         return False
 
 
 def main():
-    keyPair = RSA.generate(bits=1024)
+    """ keyPair = RSA.generate(bits=1024)
     print(f"Public key:  (n={hex(keyPair.n)}, e={hex(keyPair.e)})")
-    print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})")
+    print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})") """
     # Decide how many bits we want our primes to be
     bits = 1024
     # Todays standard would probably be 1024 bits
     p = Crypto.Util.number.getPrime(bits, randfunc=get_random_bytes)
     q = Crypto.Util.number.getPrime(bits, randfunc=get_random_bytes)
-    print(p)
-    print(q)
     if p == q:
         return "p og q kan not be the same"
     n = p*q
 
-    message = b'Dette er en melding fra Alice'
+    # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
+    message = b'Dette er en melding fra Alice, denne kan bli superduper lang og vaere veldig detaljert og fortsatt fungere saann som den skal.'
     messageTamp = b'Dette er en melding fra Eve, forkledd som Alice'
 
     phi = totient(p, q)
