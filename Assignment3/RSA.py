@@ -46,6 +46,7 @@ def mult_inv(e,phi):
 def verifySignature(signature, message, e, n):
     ourHash = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
     hashFromSignature = pow(signature, e, n)
+    print(message)
     if ourHash == hashFromSignature:
         print('The signature is verified')
         return True
