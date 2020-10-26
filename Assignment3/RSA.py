@@ -1,62 +1,98 @@
 from Crypto.Util.number import bytes_to_long, long_to_bytes
 from Crypto.Random import get_random_bytes 
 import Crypto
+import hashlib
+from Crypto.PublicKey import RSA
 
 def totient(p, q):
     return (p-1) * (q-1)
 
-def egcd(e,phi):
-    while(phi!=0):
-        e,phi=phi,e%phi
+def gcd(e,phi):
+    while(phi != 0):
+        e, phi = phi, e % phi
     return e
 
 #Extended Euclidean Algorithm
-def eea(a,b):
-    if(a%b==0):
-        return(b,0,1)
+def eea(e, phi):
+    if(e % phi == 0):
+        return(phi, 0, 1)
     else:
-        gcd,s,t = eea(b,a%b)
-        s = s-((a//b) * t)
+        gcd, s, t = eea(phi, e % phi)
+        s = s-((e//phi) * t)
         return(gcd,t,s)
  
 #Multiplicative Inverse
 def mult_inv(e,phi):
-    gcd,s,_=eea(e,phi)
-    if(gcd!=1):
+    gcd, s, _=eea(e, phi)
+    if(gcd != 1):
         print('The modular inverse does not exist')
         return None
     else:
-        if(s<0):
+        """ if(s < 0):
             print("s=%d. Since %d is less than 0, s = s(modr), i.e., s=%d."%(s,s,s%phi))
-        elif(s>0):
-            print("s=%d."%(s))
-        return s%phi
+        elif(s > 0):
+            print("s=%d."%(s)) """
+        return s % phi
+
+def verifySignature(signature, message, e, n):
+    ourHash = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
+    hashFromSignature = pow(signature, e, n)
+    print(ourHash, hashFromSignature)
+    if ourHash == hashFromSignature:
+        print('The signature is verified')
+        return True
+    else:
+        print('Something went wrong, maybe there is a man in the middle? Not trust this')
+        return False
+
 
 def main():
+    keyPair = RSA.generate(bits=1024)
+    print(f"Public key:  (n={hex(keyPair.n)}, e={hex(keyPair.e)})")
+    print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})")
     # Decide how many bits we want our primes to be
-    bits = 60
+    bits = 1024
+    # Todays standard would probably be 1024 bits
     p = Crypto.Util.number.getPrime(bits, randfunc=get_random_bytes)
     q = Crypto.Util.number.getPrime(bits, randfunc=get_random_bytes)
+    print(p)
+    print(q)
+    if p == q:
+        return "p og q kan not be the same"
     n = p*q
-    message = 'heihei'
-    print('The message is:', message)
+
+    message = b'Dette er en melding fra Alice'
+    messageTamp = b'Dette er en melding fra Eve, forkledd som Alice'
+
     phi = totient(p, q)
-    for i in range(1,1000):
-        if(egcd(i,phi)==1):
-            e=i
+
+    # e is the public exponent, Fn = 2^2^n + 1 med n = 4
+    """ for i in range(1, phi-1):
+        if(gcd(i,phi)==1):
+            e=i """
+    
+    e = 65537
+
+    # d is the private key
     d = mult_inv(e, phi)
-    m = bytes_to_long(message.encode('utf-8'))
-    print("p =", p)
-    print("q =", q)
-    print("e =", e)
-    print("d =", d)
-    # Encrypt bytes
-    cipher = pow(m,e, n)
+    # d * e = 1 mod phi(n)
+
+    print("The public key pair is e =", e, "and n =", n)
+    print("The private key pair is d =", d, "and n =", n)
+    # Creates a signature
+    hashedMessage = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
+    signature = pow(hashedMessage, d, n)
+    # Verify the signature
+    verifySignature(signature, message, e, n)
+
+
+""" # Encrypt bytes
+    cipher = pow(message,e, n)
     print("The cipher is:", cipher)
     # Decrypt bytes
     decipher = pow(cipher,d ,n)
     plaintext = long_to_bytes(decipher).decode('utf-8')
-    print("The plaintext after decrypting the cipher: ", plaintext)
+    print("The plaintext after decrypting the cipher: ", plaintext) """
     
 
 if __name__ == "__main__":
