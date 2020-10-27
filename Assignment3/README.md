@@ -6,7 +6,7 @@ Before you can execute the code you might need to install pycrypto, this is done
 pip install pycrypto
 ```
 
-Execute the code as a normal python file. F.eks:
+Execute the code as a normal python file. For example:
 ```
 python .\RSA.py
 ```
