@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests, json
 from RSA import generatePrimes, totient, mult_inv, verifySignature
 import hashlib
+from math import gcd
 
 # Bob's server
 
@@ -10,12 +11,16 @@ app = Flask(__name__)
 message = ''
 signature = 0
 
-# The public key
-e = 65537
-
 # generate the private keys
 p, q, n = generatePrimes(1024)
 phi = totient(p, q)
+
+# The public key
+e = 65537
+# e can not be a factor of phi, it is unlikely, but must be checked
+while (phi % e == 0):
+    e = gcd(2, phi-1)
+
 d = mult_inv(e, phi)
 
 # At this page you can write in a message and send it to Alice.
