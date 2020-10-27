@@ -9,7 +9,11 @@ app = Flask(__name__)
 
 message = ''
 signature = 0
+
+# The public key
 e = 65537
+
+# generate the private keys
 p, q, n = generatePrimes(1024)
 phi = totient(p, q)
 d = mult_inv(e, phi)
@@ -45,6 +49,7 @@ def getMessage():
     if fullMessage.ok:
         if messageObject['message'] == '' or messageObject['signature'] == 0:
             return "There is no message."
+        # If there is a message, check that the signature matches to the message
         if verifySignature(messageObject['signature'], messageObject['message'].encode(), messageObject['e'], messageObject['n']):
             return '''The message from Alice is: <h3>{}</h3> <div>This message has Alice's digital signature</div>'''.format(messageObject['message'])
         return '''The message from Alice is: <h3>{}</h3> <div> But something went wrong. There might be a man in the middle here.</div>'''.format(messageObject['message']) 
