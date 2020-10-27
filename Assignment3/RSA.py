@@ -3,50 +3,60 @@ from Crypto.Random import get_random_bytes
 import Crypto
 import hashlib
 from Crypto.PublicKey import RSA
+from math import gcd
 
 def generatePrimes(bitLength):
     # Todays standard would probably be 1024 bits
     p = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
     q = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
     if p == q:
-        return "p og q kan not be the same"
+        return "p og q can not be the same"
     n = p*q
     return p, q, n
 
 def totient(p, q):
     return (p-1) * (q-1)
 
-def gcd(e,phi):
-    while(phi != 0):
-        e, phi = phi, e % phi
-    return e
-
-#Extended Euclidean Algorithm
-def eea(e, phi):
-    if(e % phi == 0):
-        return(phi, 0, 1)
-    else:
-        gcd, s, t = eea(phi, e % phi)
-        s = s-((e//phi) * t)
-        return(gcd,t,s)
- 
-#Multiplicative Inverse
-def mult_inv(e,phi):
-    gcd, s, _=eea(e, phi)
-    if(gcd != 1):
-        print('The modular inverse does not exist')
-        return None
-    else:
-        """ if(s < 0):
-            print("s=%d. Since %d is less than 0, s = s(modr), i.e., s=%d."%(s,s,s%phi))
-        elif(s > 0):
-            print("s=%d."%(s)) """
-        return s % phi
+# Returns modulo inverse of a with 
+# respect to m using extended Euclid 
+# Algorithm Assumption: a and m are 
+# coprimes, i.e., gcd(a, m) = 1 
+def modInverse(a, m) : 
+    m0 = m 
+    y = 0
+    x = 1
+  
+    if (m == 1) : 
+        return 0
+  
+    while (a > 1) : 
+  
+        # q is quotient 
+        q = a // m 
+  
+        t = m 
+  
+        # m is remainder now, process 
+        # same as Euclid's algo 
+        m = a % m 
+        a = t 
+        t = y 
+  
+        # Update x and y 
+        y = x - q * y 
+        x = t 
+  
+  
+    # Make x positive 
+    if (x < 0) : 
+        x = x + m0 
+  
+    return x 
+    # This code is contributed by Nikita tiwari. 
 
 def verifySignature(signature, message, e, n):
     ourHash = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
     hashFromSignature = pow(signature, e, n)
-    print(message)
     if ourHash == hashFromSignature:
         print('The signature is verified')
         return True
@@ -56,10 +66,12 @@ def verifySignature(signature, message, e, n):
 
 # Run main to see a staged scenario where we use a digital signature and verify it
 def main():
+    # Choose to use Crypto's RSA key generators
     """ keyPair = RSA.generate(bits=1024)
     print(f"Public key:  (n={hex(keyPair.n)}, e={hex(keyPair.e)})")
     print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})") """
 
+    # Or use mine
     p, q, n = generatePrimes(1024)
 
     # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
@@ -69,24 +81,25 @@ def main():
     phi = totient(p, q)
 
     # e is the public exponent, Fn = 2^2^n + 1 med n = 4
-    """ for i in range(1, phi-1):
-        if(gcd(i,phi)==1):
-            e=i """
-    
     e = 65537
+    # e can not be a factor of phi, it is unlikely, but must be checked
+    while (phi % e == 0):
+        e = gcd(2, phi-1)
 
     # d is the private key
-    d = mult_inv(e, phi)
+    
+    d = modInverse(e, phi)
     # d * e = 1 mod phi(n)
 
     print("The public key pair is e =", e, "and n =", n)
     print("The private key pair is d =", d, "and n =", n)
+
     # Creates a signature
     hashedMessage = int.from_bytes(hashlib.sha256(message).digest(), byteorder='big')
     signature = pow(hashedMessage, d, n)
+
     # Verify the signature
     verifySignature(signature, message, e, n)
-    
 
 if __name__ == "__main__":
     main()
