@@ -17,7 +17,6 @@ e = 65537
 p, q, n = generatePrimes(1024)
 phi = totient(p, q)
 d = mult_inv(e, phi)
-e = 65537
 
 # At this page you can write in a message and send it to Bob.
 # There can only be one message sent at a time.
