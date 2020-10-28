@@ -6,11 +6,11 @@ from math import gcd
 import timeit
 
 def generatePrimes(bitLength):
+    p, q = 0, 0
     # Todays standard is 1024 bits and larger
-    p = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
-    q = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
-    if p == q:
-        return "p og q can not be the same"
+    while p == q:
+        p = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
+        q = Crypto.Util.number.getPrime(bitLength, randfunc=get_random_bytes)
     n = p*q
     return p, q, n
 
@@ -21,7 +21,7 @@ def totient(p, q):
 # respect to m using extended Euclid 
 # Algorithm Assumption: a and m are 
 # coprimes, i.e., gcd(a, m) = 1 
-def modInverse(a, m) : 
+def modInverse(a, m) :
     m0 = m 
     y = 0
     x = 1
@@ -61,6 +61,7 @@ def verifySignature(signature, message, e, n):
 
 # Run main to see a staged scenario where we use a digital signature and verify it
 def main():
+    # Added timer to see the differences on runtime with smaller and bigger keys
     start_time = timeit.default_timer()
 
     # Choose to use Crypto's RSA key generators
@@ -69,7 +70,7 @@ def main():
     print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})") """
 
     # Or use mine
-    p, q, n = generatePrimes(2024)
+    p, q, n = generatePrimes(1024)
 
     # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
     message = b'This is a message from Alice to Bob'   
@@ -99,7 +100,7 @@ def main():
     # Verify the signature
     verifySignature(signature, message, e, n)
 
-    # remove the comment signs if you want to test the tampered message
+    # remove the comment signs below if you want to test the tampered message
     """ # Try to verify the signature on the tampered message
     verifySignature(signature, messageTamp, e, n) """
 
