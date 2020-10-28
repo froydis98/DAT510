@@ -23,7 +23,7 @@ A description of the scientific background for your project, including previous 
 objective of your experiment. 
 
 \section*{Design and Implementation}
-I have created both a digital signature scenario in the main whit a predefined message where we can validate the signature on the message and two applications where Alice and Bob can send messages to each other with a signature and validate that the messages are correct. Both the main and the applications uses the same methods and I will therefore first explain all the methods before I go into the applications. \\
+I have created both a digital signature scenario in the main with a predefined message where we can validate the signature on the message and two applications where Alice and Bob can send messages to each other with a signature and validate that the messages are correct. Both the main and the applications uses the same methods and I will therefore first explain all the methods before I go into the applications. \\
 
 When implementing RSA, I think the most crucial thing is to find some good keys. We need two random large primes, \textbf{p} and \textbf{q}. By multiplying \textbf{p} and \textbf{q} we get \textbf{n}. The keys are generated as shown in Figure \ref{fig:generatePrimes}. To decide \textbf{p} and \textbf{q} I use a package called Crypto and uses their method \textit{getPrime}, and to get a random primes I also uses Crypto's function \textit{get\_random\_bytes}. Although the chances for p and q to be the same is very small, we should make sure that's not the case. I take in the bit length as an input to the function. There are major runtime differences that depend on the bit length, but I will get back to that.
 
@@ -97,13 +97,43 @@ To fetch messages you go to /getMsg. If there is no message it will be displayed
 The applications has a very very similar set up as in assignment 2, and one is run on port 3000 and one on port 5000. 
 
 \section*{Test results}
-Results of testing the software, as you observed/recorded them. Note that this section is only for observations you
-make during testing. Your analysis belongs in the Discussion section. 
+
+Running the main applications will print out the information we get while doing a digital signature and verifying it. As you can see in Figure \ref{fig:print}, the first thing printed is the public and private keys. Then we can see the message sent from Alice to Bob and the signature sent with it. The recreated hash is created by Bob to see that it matches the hash we got by encrypting Alice's signature. And in this case they are the same and therefore the signature is verified.
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{code_snippets/print.PNG}\centering
+  \caption{The print statements from the RSA.py main}
+  \label{fig:print}
+\end{figure}
+
+Using this on the two applications will look as shown in Figure \ref{fig:msg}, when the signature is verified. If the signature does not match the message, the note under the message will tell you that.
+
+\begin{figure}[H]
+  \hspace*{-50px}\includegraphics[width=500px]{code_snippets/msg.PNG}\centering
+  \caption{Alice sends a message and sign it. Bob receives it and verifies the signature}
+  \label{fig:msg}
+\end{figure}
+
+It seems like RSA usually uses key of 2048 bits. Creating and working with that big numbers goes slow in python and to beware of computational problems I have used the package \textit{timeit} to find out the different execution times depending on the bit length. You can see the result in the table here.
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Bit length & Execution time\\
+ 128 & 0.060 \\ 
+ 512 & 0.738 \\ 
+ 1024 & 4.894 \\ 
+ 2048 & 35.01 \\
+ \hline
+\end{tabular}
+\end{center}
+
+As you can see in the table, the execution time increases exponentially as we increases the bit length.
 
 \section*{Discussion}
 Your analysis of what your testing results mean, and your analysis.
 
-I could have and was thinking about splitting up the message, to get a lower runtime, but did not see that as a need in this case, since the messages was not that big anyway. I tried sending a string with 5000 characters, and it was slower, but nothing crucial.
+I could have, and was thinking about splitting up the message, to get a lower runtime, but did not see that as a must in this case, since the messages was not that big anyway. I tried sending a string with 5000 characters, and it was slower, but nothing crucial.
 
 \section*{Conclusion}
 A short paragraph that restates the objective from your introduction and relates it to your results and discussion, and

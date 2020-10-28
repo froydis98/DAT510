@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests, json
-from RSA import generatePrimes, totient, mult_inv, verifySignature
+from RSA import generatePrimes, totient, modInverse, verifySignature
 import hashlib
 from math import gcd
 
@@ -21,7 +21,7 @@ e = 65537
 while (phi % e == 0):
     e = gcd(2, phi-1)
 
-d = mult_inv(e, phi)
+d = modInverse(e, phi)
 
 # At this page you can write in a message and send it to Bob.
 # There can only be one message sent at a time.
