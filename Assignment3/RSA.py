@@ -70,7 +70,7 @@ def main():
     print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})") """
 
     # Or use mine
-    p, q, n = generatePrimes(2048)
+    p, q, n = generatePrimes(1024)
 
     # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
     message = b'This is a message from Alice to Bob'   
