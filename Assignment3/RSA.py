@@ -3,6 +3,7 @@ import Crypto
 import hashlib
 from Crypto.PublicKey import RSA
 from math import gcd
+import timeit
 
 def generatePrimes(bitLength):
     # Todays standard is 1024 bits and larger
@@ -60,13 +61,15 @@ def verifySignature(signature, message, e, n):
 
 # Run main to see a staged scenario where we use a digital signature and verify it
 def main():
+    start_time = timeit.default_timer()
+
     # Choose to use Crypto's RSA key generators
     """ keyPair = RSA.generate(bits=1024)
     print(f"Public key:  (n={hex(keyPair.n)}, e={hex(keyPair.e)})")
     print(f"Private key: (n={hex(keyPair.n)}, d={hex(keyPair.d)})") """
 
     # Or use mine
-    p, q, n = generatePrimes(1024)
+    p, q, n = generatePrimes(2024)
 
     # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
     message = b'This is a message from Alice to Bob'   
@@ -99,6 +102,9 @@ def main():
     # remove the comment signs if you want to test the tampered message
     """ # Try to verify the signature on the tampered message
     verifySignature(signature, messageTamp, e, n) """
+
+    elapsed = timeit.default_timer() - start_time
+    print(elapsed)
 
 if __name__ == "__main__":
     main()
