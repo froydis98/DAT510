@@ -10,15 +10,8 @@ app = Flask(__name__)
 
 message = ''
 signature = 0
-
-# generate the private keys
-p, q, n = generatePrimes(1024)
-phi = totient(p, q)
-
-# The public key
-e = generatePublicKey(phi)
-
-d = modInverse(e, phi)
+e = 0
+n = 0
 
 # At this page you can write in a message and send it to Alice.
 # There can only be one message sent at a time.
@@ -26,10 +19,16 @@ d = modInverse(e, phi)
 def sendMessage():
     text = request.form.get('message')
     if text:
-        global signature
-        global message
+        global signature, message, e, n
         # Hash the message and use RSA encryption to create a digital signature
         hashedMessage = int.from_bytes(hashlib.sha256(text.encode()).digest(), byteorder='big')
+        # Generate the keys, does this here because we want new keys for each message
+        p, q, n = generatePrimes(512)
+        phi = totient(p, q)
+        e = generatePublicKey(phi)
+        d = modInverse(e, phi)
+
+        # Creates signature for the message
         signature = pow(hashedMessage, d, n)
         message = text
     return render_template('sendMsg.html', title="Send message")

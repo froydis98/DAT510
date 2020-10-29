@@ -25,7 +25,7 @@ def generatePublicKey(phi):
             return rand
     return "Did not find any e"
         
-
+# Code from https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/
 # Returns modulo inverse of a with 
 # respect to m using extended Euclid 
 # Algorithm Assumption: a and m are 
@@ -75,7 +75,7 @@ def main():
     start_time = timeit.default_timer()
 
     # Generate the prime numbers, choose bit length
-    p, q, n = generatePrimes(1024)
+    p, q, n = generatePrimes(512)
 
     # The message kan only be ascii signs. Do not use Æ, Ø, Å and other special characters
     message = b'This is a message from Alice to Bob'   

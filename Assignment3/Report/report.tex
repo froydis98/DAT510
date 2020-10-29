@@ -23,7 +23,7 @@ A description of the scientific background for your project, including previous 
 objective of your experiment. 
 
 \section*{Design and Implementation}
-I have created both a digital signature scenario in the main with a predefined message where we can validate the signature on the message and two applications where Alice and Bob can send messages to each other with a signature and validate that the messages are correct. Both the main and the applications uses the same methods and I will therefore first explain all the methods before I go into the applications. \\
+I have created both a digital signature scenario in the main with a predefined message where we can validate the signature on the message and two applications where Alice and Bob can send messages to each other with a signature and validate that the messages are correct. Both the main and the applications use the same methods and I will therefore first explain all the methods before I go into the applications. \\
 
 When implementing RSA, I think the most crucial thing is to find some good keys. We need two random large primes, \textbf{p} and \textbf{q}. By multiplying \textbf{p} and \textbf{q} we get \textbf{n}. The keys are generated as shown in Figure \ref{fig:generatePrimes}. To decide \textbf{p} and \textbf{q} I use a package called Crypto and uses their method \textit{getPrime}, and to get a random primes I also uses Crypto's function \textit{get\_random\_bytes}. Although the chances for p and q to be the same is very small, we should make sure that's not the case. I take in the bit length as an input to the function. There are major runtime differences that depend on the bit length, but I will get back to that.
 
@@ -41,15 +41,16 @@ The next step is to find the totient of \textbf{n}, $\phi$ phi. As shown in Figu
   \label{fig:totient}
 \end{figure}
 
-Together with \textbf{n} we have another public exponent \textbf{e}. This is a prime number that should be the greatest common divisor of 1 with $\phi(n)$. But it is often chosen to be the Fermat number 65537. That is the largest known prime in the form of $2^{2^{n}} + 1, (n=4)$. It is large enough to avoid attacks and quick on binary calculations. But we should always check that e is not a factor of the totient $\phi$. If that is the case, we choose the next largest prime number, \cite{65537}. As shown in Figure \ref{fig:e} I use \textit{gcd} imported from the package math to calculate the greatest common divisor.
+Together with \textbf{n} we have another public exponent \textbf{e}. This is a number that is the greatest common divisor of 1 with $\phi(n)$. The number in practical use is often chosen to be the Fermat number 65537. That is the largest known prime in the form of $2^{2^{n}} + 1, (n=4)$. It is large enough to avoid attacks and quick on binary calculations. But we should always check that e is not a factor of the totient $\phi$. If that is the case, we choose the next largest prime number, \cite{65537}. 
+But in this assignment, we want to generate a new \textbf{e} for each time so that for testing. As shown in Figure \ref{fig:e} I use \textit{randint} to get a random number in between 3 and phi and then check that it meets the requirement. I use \textit{gcd} imported from the package math to calculate the greatest common divisor, and if the result from that is 1. We can use that number as our public key \textbf{e}. That means that \textbf{e} and $\phi$ are coprimes.
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{code_snippets/e.PNG}\centering
-  \caption{e is F4, 65537, if it is a factor of the totient use the gcd}
+  \includegraphics[width=350px]{code_snippets/gene.PNG}\centering
+  \caption{generate our public component e, by finding a coprime to phi}
   \label{fig:e}
 \end{figure}
 
-Using the public exponent \textbf{e} and $\phi$ we can create the private exponent \textbf{d}. The private exponent \textbf{d} is the inverse of the public exponent with respect to the totient $\phi$. To calculate the inverse you can use the \textit{Extended Euclidean Algorithm}. I have taken an implementation of that from geeksforgeeks, ref \cite{modinv}. This method works when \textbf{e} and $\phi$ is coprimes, which we already know they are. The function to find \textbf{d} is shown in Figure \ref{fig:modinv}
+Using the public exponent \textbf{e} and $\phi$ we can create the private exponent \textbf{d}. The private exponent \textbf{d} is the inverse of the public exponent with respect to the totient $\phi$. To calculate the inverse you can use the \textit{Extended Euclidean Algorithm}. I have taken an implementation of that from geeksforgeeks, ref \cite{modinv}. This method works when \textbf{e} and $\phi$ are coprimes, which we already know they are. The function to find \textbf{d} is shown in Figure \ref{fig:modinv}
 
 \begin{figure}[H]
   \includegraphics[width=250px]{code_snippets/modinv.PNG}\centering
@@ -57,10 +58,10 @@ Using the public exponent \textbf{e} and $\phi$ we can create the private expone
   \label{fig:modinv}
 \end{figure}
 
-Now that we have the public keypair of \textbf{e} and \textbf{n} and the private keypair of \textbf{d} and \textbf{n}, we can start creating the digital signature on the message. Before we can run the RSA encryption calculation to create the signature we have to hash the original data (the message). I have imported \textit{hashlib} and used SHA256 for hashing the message. So that means that no matter how long the message is, we will get a 256 bit block.
+Now that we have the public keypair of \textbf{e} and \textbf{n} and the private key pair of \textbf{d} and \textbf{n}, we can start creating the digital signature on the message. Before we can run the RSA encryption calculation to create the signature we have to hash the original data (the message). I have imported \textit{hashlib} and used SHA256 for hashing the message. So that means that no matter how long the message is, we will get a 256-bit block.
 Using the hash we can now create the signature by using RSA's encryption function. We will use our private key to create the signature as shown here in the mathematical expression.
 $$hash^{d}\ mod\ n$$
-In the code, as shown in Figure \ref{fig:hash}, I use the function \textit{pow} which does the same as the mathematical expression. As you can also see in the figure is that I convert the hash into an integer, and throughout the program I only work with integers instead of bits.
+In the code, as shown in Figure \ref{fig:hash}, I use the function \textit{pow} which does the same as the mathematical expression. As you can also see in the figure is that I convert the hash into an integer, and throughout the program, I only work with integers instead of bits.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/hash.PNG}\centering
@@ -68,7 +69,7 @@ In the code, as shown in Figure \ref{fig:hash}, I use the function \textit{pow} 
   \label{fig:hash}
 \end{figure}
 
-Now that we have the message and the digital signature we can send it and verify that the message is correct according to the signature and it have not been tampered by some man in the middle. To verify the signature we take the message and creates a hash using the same hashing method SHA256. This hash should match what we decrypt from the signature. To decrypt the signature we do the same mathematical operation as when it was created but instead of the message, we use the signature, and instead of the private key \textbf{d} we use the public key \textbf{e}. This works because both \textbf{e} and \textbf{n} is public keys. So in this case everyone can verify that the message was sent from f.ex Alice. Normally we would use some encryption on top of that, since the message now is sent in plaintext. As you can see in Figure \ref{fig:verify}, we check that the hash we got from the message is the same that we got after decrypting the signature. If they are the same, we have verified that the message from Alice is the same as at the point Alice signed it and sent it.
+Now that we have the message and the digital signature we can send it and verify that the message is correct according to the signature and it has not been tampered by some man in the middle. To verify the signature we take the message and creates a hash using the same hashing method SHA256. This hash should match what we decrypt from the signature. To decrypt the signature we do the same mathematical operation as when it was created but instead of the message, we use the signature, and instead of the private key \textbf{d} we use the public key \textbf{e}. This works because both \textbf{e} and \textbf{n} is public keys. So in this case everyone can verify that the message was sent from f.ex Alice. Normally we would use some encryption on top of that since the message now is sent in plaintext. As you can see in Figure \ref{fig:verify}, we check that the hash we got from the message is the same that we got after decrypting the signature. If they are the same, we have verified that the message from Alice is the same as at the point Alice signed it and sent it.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/verify.PNG}\centering
@@ -76,17 +77,17 @@ Now that we have the message and the digital signature we can send it and verify
   \label{fig:verify}
 \end{figure}
 
-In the application we have two url's. The start url, where we can send a message and sign it. And /getMsg where we can see the message from the other part and see if the signature is correct. Opening the application will automatically run the generation of the public and private keys, in the same way as explained previously. \\
+In the application, we have two URLs. The start URL, where we can send a message and sign it. And /getMsg where we can see the message from the other part and see if the signature is correct. \\
 
-When a message is written and it's clicked send the signature will be created as shown in Figure \ref{fig:send}. The fetching point for people that want to receive the message is /sentMsg. And the message is sent as a dictionary including the message, the signature, \textbf{e} and \textbf{n}.
- 
+When a message is written and it's clicked send the keys will be created as explained previously and the signature will be created as shown in Figure \ref{fig:send}. The fetching point for people that want to receive the message is /sentMsg. And the message is sent as a dictionary including the message, the signature, \textbf{e}, and \textbf{n}.
+
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/send.PNG}\centering
   \caption{Running a template with input field and submit button to send message with a signature}
   \label{fig:send}
 \end{figure}
 
-To fetch messages you go to /getMsg. If there is no message it will be displayed "There is no message". If there is a message we have to verify the signature. We use the \textit{verifySignature} method as shown in Figure \ref{fig:verify}. If the message and the signature corresponds the message will be shown with a note that the signature is correct. If the signature is wrong there is a warning that someone might have tampered the message.
+To fetch messages you go to /getMsg. If there is no message it will be displayed "There is no message". If there is a message we have to verify the signature. We use the \textit{verifySignature} method as shown in Figure \ref{fig:verify}. If the message and the signature correspond the message will be shown with a note that the signature is correct. If the signature is wrong there is a warning that someone might have tampered the message.
  
 \begin{figure}[H]
   \hspace*{-50px}\includegraphics[width=500px]{code_snippets/get.PNG}\centering
@@ -94,11 +95,12 @@ To fetch messages you go to /getMsg. If there is no message it will be displayed
   \label{fig:get}
 \end{figure} 
 
-The applications has a very very similar set up as in assignment 2, and one is run on port 3000 and one on port 5000. 
+The applications have a very similar set up as in assignment 2, and one is run on port 3000 and one on port 5000. 
 
 \section*{Test results}
 
-Running the main applications will print out the information we get while doing a digital signature and verifying it. As you can see in Figure \ref{fig:print}, the first thing printed is the public and private keys. Then we can see the message sent from Alice to Bob and the signature sent with it. The recreated hash is created by Bob to see that it matches the hash we got by encrypting Alice's signature. And in this case they are the same and therefore the signature is verified.
+As in the previous assignment I created both a staged scenario and two applications to try out RSA digital signature. 
+Running the main in RSA.py will print out the information we get while doing a digital signature and verifying it, in a staged scenario. As you can see in Figure \ref{fig:print}, the first thing printed is the public and private keys. Then we can see the message sent from Alice to Bob and the hashed message. From the hashed message the signature is created. The signature will be sent to Bob from Alice with the message and the public keys. Then Bob recreates a hash from the message to see that it matches the hash we got by encrypting Alice's signature. And in this case, they are the same and therefore the signature is verified.
 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{code_snippets/print.PNG}\centering
@@ -114,7 +116,7 @@ Using this on the two applications will look as shown in Figure \ref{fig:msg}, w
   \label{fig:msg}
 \end{figure}
 
-It seems like RSA usually uses key of 2048 bits. Creating and working with that big numbers goes slow in python and to beware of computational problems I have used the package \textit{timeit} to find out the different execution times depending on the bit length. You can see the result in the table here.
+It seems like RSA usually uses keys of 2048 bits. Creating and working with that big numbers goes slow in python and to beware of computational problems I have used the package \textit{timeit} to find out the different execution times depending on the bit length. You can see the result in the table here.
 
 \begin{center}
 \begin{tabular}{ |c|c|c| } 
@@ -129,12 +131,21 @@ It seems like RSA usually uses key of 2048 bits. Creating and working with that 
 \end{tabular}
 \end{center}
 
-As you can see in the table, the execution time increases exponentially as we increases the bit length. But the important thing here is that if the product of the 
+As you can see in the table, the execution time increases exponentially as we increase the bit length. But the important thing here is that if the product of p and q is bigger than the hashed message, which is 256-bits, or else this will not work. So when I tested with 128bit primes to create the key, the digital signature did not work. A way to solve that is to split up the keys or split up the message and create a longer hash, but I chose to not do that because the execution time of keys created from larger primes is not that small.
 
 \section*{Discussion}
-Your analysis of what your testing results mean, and your analysis.
+The keys are created and fulfill the requirements to work in RSA. The RSA digital signature does work as expected and I think the result is good. With the keys created I could also have used them for encrypting and decrypting messages. I have chosen to use a default of 512-bit primes as \textbf{p} and \textbf{q}, because that's small enough to test the application without having to wait for the program to run but large enough to provide some security and works without splitting the keys. 
+I could have, and was thinking about splitting up the message, to get a lower execution time, but did not see that as a must in this case, since the messages were not that big anyway. I tried sending a string with 5000 characters, and it was slower, but nothing crucial. With more time I think it had been fun to try to implement SHA256 from the bottom, but that is for later when I have some extra time. 
 
-I could have, and was thinking about splitting up the message, to get a lower runtime, but did not see that as a must in this case, since the messages was not that big anyway. I tried sending a string with 5000 characters, and it was slower, but nothing crucial.
+\section*{Part 2}
+\textit{1. What are the different types of SSL's and how different they are in aspect of security? Why ?}\\
+Noe svar her
+\\
+\textit{2. Research about the the Certificate Authority Security concerns and explain.}\\
+Noe svar her
+\\
+\textit{3. How does browsers identify secure CA's From another CA's and how is it measured ?}\\
+Noe svar her
 
 \section*{Conclusion}
 A short paragraph that restates the objective from your introduction and relates it to your results and discussion, and
