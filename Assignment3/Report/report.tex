@@ -13,14 +13,11 @@
 \end{titlepage}
 
 \begin{abstract}
-A one-paragraph summary of the entire assignment - your choices of cryptographic primitives and their parameters,
-procedure, test results, and analysis. 
+In this assignment I have learned and implemented a RSA Digital Signatur system. I have used some packages, but explain step by step how RSA does work. I have used my RSA implementation in a staged scenario and by using two application where they send messages to each other with a digital signature where the other part have to verify the signature. I have also tested different bit lengths of the primes, finding out how it effects the execution time. Lastly I will discuss and answer some questions about SSL and Certificate Authority.
 \end{abstract}
 
 \section*{Introduction}
-A description of the scientific background for your project, including previous work that your project builds on.
-(Remember to cite your sources!) The final sentence (analogous to the thesis statement in a term paper) is the
-objective of your experiment. 
+Knowing that the message you got is the exact message the same message that was sent is important. We need to verify that the message is not tampered. We can verify that by using a Digital Signature. In this assignment I will implement a way to sign and validate data when it's being transferred by each side. I have chosen to use RSA and the hashing algorithm SHA256. I will also go through different SSL certificates and discuss Certificate Authority.
 
 \section*{Design and Implementation}
 I have created both a digital signature scenario in the main with a predefined message where we can validate the signature on the message and two applications where Alice and Bob can send messages to each other with a signature and validate that the messages are correct. Both the main and the applications use the same methods and I will therefore first explain all the methods before I go into the applications. \\
@@ -116,7 +113,7 @@ Using this on the two applications will look as shown in Figure \ref{fig:msg}, w
   \label{fig:msg}
 \end{figure}
 
-It seems like RSA usually uses keys of 2048 bits. Creating and working with that big numbers goes slow in python and to beware of computational problems I have used the package \textit{timeit} to find out the different execution times depending on the bit length. You can see the result in the table here.
+It seems like RSA usually uses keys of 2048 bits. Creating and working with that big numbers goes slow in my python program and to beware of computational problems I have used the package \textit{timeit} to find out the different execution times depending on the bit length. You can see the result in the table here.
 
 \begin{center}
 \begin{tabular}{ |c|c|c| } 
@@ -131,11 +128,13 @@ It seems like RSA usually uses keys of 2048 bits. Creating and working with that
 \end{tabular}
 \end{center}
 
-As you can see in the table, the execution time increases exponentially as we increase the bit length. But the important thing here is that if the product of p and q is bigger than the hashed message, which is 256-bits, or else this will not work. So when I tested with 128bit primes to create the key, the digital signature did not work. A way to solve that is to split up the keys or split up the message and create a longer hash, but I chose to not do that because the execution time of keys created from larger primes is not that small.
+As you can see in the table, the execution time increases exponentially as we increase the bit length. But the important thing here is that if the product of p and q is bigger than the hashed message, which is 256-bits, or else this will not work. So when I tested with 128bit primes to create the key, the digital signature did not work. A way to solve that is to split up the keys or split up the message and create a longer hash, but I chose to not do that because the execution time of keys created from larger primes is not that much bigger.
 
 \section*{Discussion}
 The keys are created and fulfill the requirements to work in RSA. The RSA digital signature does work as expected and I think the result is good. With the keys created I could also have used them for encrypting and decrypting messages. I have chosen to use a default of 512-bit primes as \textbf{p} and \textbf{q}, because that's small enough to test the application without having to wait for the program to run but large enough to provide some security and works without splitting the keys. 
 I could have, and was thinking about splitting up the message, to get a lower execution time, but did not see that as a must in this case, since the messages were not that big anyway. I tried sending a string with 5000 characters, and it was slower, but nothing crucial. With more time I think it had been fun to try to implement SHA256 from the bottom, but that is for later when I have some extra time. 
+\\
+RSA does work because of Euler's Theorem. And it is hard to crack because it is much easier to multiply large numbers, rather than factor them apart. I did go through the algorithm and why exactly RSA works. But if you are interested to see what I've read, you can take a look here \cite{RSA}.
 
 \section*{Part 2}
 \textit{1. What are the different types of SSL's and how different they are in aspect of security? Why ?}\\
@@ -174,25 +173,40 @@ This certificate are similar to multi-domain certificates and can secure up to 1
 By combining a validation level appropriate to the purposes, with the number of domains you need you can get an optimal SSL certificate. For answering this question I have used an article from namecheap.com and it's references, read it here \cite{ssl}.
 \\\\
 \textit{2. Research about the the Certificate Authority Security concerns and explain.}\\
-A certificate authory (CA) is a company or organization that acts to validate the identities of entities such as websites, email addresses, companies, or individual persons and bind them to cryptographic keys through the issuance of electronic documents known as digital certificates. A digital certificate verifies the ownership of a public key by the named subject of the certificate. A CA acts as a thrusted third part, which both the owner of the certificate and the party relying upon the certificate must trust. Sertifikatene varer for lenge. Let's 
+A certificate authory (CA) is a company or organization that acts to validate the identities of entities such as websites, email addresses, companies, or individual persons and bind them to cryptographic keys through the issuance of electronic documents known as digital certificates. A digital certificate verifies the ownership of a public key by the named subject of the certificate. A CA acts as a trusted third part, which both the owner of the certificate and the party relying upon the certificate must trust. But there are some concerns regarding trusting the CA, and I will go through some of them.
 \\
-Single point of failure - hvem som helst kan lage en CA
+\textbf{Certificate Revocation}
 \\
-Problem with CA behaviour badly
+Usually a certificate last for a few years, but in some cases the certificate should be revoked before it expires. The certificate revocation lists (CRL) are lists that contains serial number f revoked certificates. These are published by the CA responsible for issuing the certificate to be revoked. An issue with using CRLs is that in the event that the CRL server becomes unreachable, the client will be forced to either fail open or fail closed. When you choose to fail open the client will be left without protection from revoked certificates. If you choose to fail close the client will be left without the ability to connect to SSLs enabled endpoint.
 \\
-Lack of transparency - CA browser forum
+\textbf{Breaches}
 \\
-Breach - en private key blir lekket
+Since CAs hold important private keys and other information that can expose a lot of data, they are valuable targets. Because the trust to the CA are very important there are some cases where the CA will not own up to it and inform users if there is a breach. If the CA is trustworthy they will own up the the mistake and revoke the affected certificates. So a big concern is that the CA must be trustworthy so that you know that the certificate you use is not leaked so that you do actually have a secure connection.
 \\
+\textbf{CAs behaving badly}
+\\
+Since we have to trust the CAs we use there is extremely important that they behave as expected. There have been some cases where CAs works around the requirements and therefore does not give us the secure connection we think we have. There was an happening where a CA had several violations documented. But to ban a CA is a though decision and is a decision that browser vendors has to support, because they are the people who decides which CAs that are allowed in their browser. But in the case where many mistakes and violations was documented only Firefox and Apple decided that the CAs certificates would not be valid for a year. That means that in for example Chrome, the CA could go on as before with the bad behavior. There are also differences in what the requirements is to issue a EV SSL cert and OV SSL cert. Some CAs are more strict that others.
+\\
+\textbf{Single point of failure}
+\\
+It is not uncommon for a root store to contain several hundred root CAs. The browser treats all of the CAs equally, therefore it only takes one rouge or compromised CA for failure.
+\\
+\textbf{Lack of transparency}
+\\
+Another problem is that any CA can issue a certificate for a website without the domain owner to know about it. Browsers are starting to enforce certificate transparency, which means they will publish logs of all certificates issued. This log can be used in two different ways. First, to be sure that a certificate presented by a server is one that was properly issued, and second, that a CA did not issue a certificate for a domain that did not require it.
+\\
+To answer this question I used an article from Fordham Center for Cybersecurity. You can find it here \cite{ca}.
+\\\\
 \textit{3. How does browsers identify secure CA's From another CA's and how is it measured ?}\\
-For the browser to identify and differ between CA's it needs access to the entire certificate chain up to and including the root CA for all of certificates it will verify. The root certificate must have been issued in a secure way. An other method used is to use the certificate trust list (CTL). That's a list of all trusted certificates. The list has to bee signed by the root CA that the browser trust. If one of the private keys in the certificate three has been lost or revealed, all of the children of that certificate can not be used anymore. 
-sjekk datoen
+For the browser to identify secure CA's and verify the certificate there is some things that has to be checked. First the browser verifies the certificate's integrity. This is done by verifying the signature on the certificate using a normal public key cryptography. If the signature is valid the browser will move on and verify the certificate's validity. The validity period is the time interval during which the signing CA warrants that it will maintain information about its status. If the validity period is ending before or starting after the date and time of the validation check the browser will reject it. 
+
+If the validity period is correct the browser will move on and check the certificate's revocation status. Because the certificate is expected to be valid for the whole validity period, there can be circumstances, as explained previous that does cause the certificate to become invalid before it expires. If the CA has revoked the certificate, the certificate will be put on a Certificate Revocation List (CRL). If the certificate is on that list, the browser will reject it. There is also a possibility to send a request to the Online Certificate Status Protocol (OCSP) and get the revocation status from an online server.
+
+The browser does also have to verify the issuer. X.509 certificates, which is the most common, are normally associated with two properties, the issuer and the subject. Browsers check that a certificate's issuer field is the same as the subject field of the previous certificate in the certificate path. Lastly the browser checks the certificate constrains, if these are defined by the CA. Most of this information is from this article \cite{browser}.
 
 
 \section*{Conclusion}
-A short paragraph that restates the objective from your introduction and relates it to your results and discussion, and
-describes any future improvements that you would recommend. Works Cited A bibliography of all of the sources
-you got information from in your report. 
+In this assignment I have shown how to sign a message and how the other part can verify it by using RSA Digital Signature. I have explained how it's implemented in my program and how it works. I have taken a closer look into execution time using different sizes of my primes in RSA. I have also discussed SSL, looked into Certificate Authority and the concerns about it and how browsers checks certificates. 
 
 
 \begin{thebibliography}{10} 
@@ -200,8 +214,14 @@ you got information from in your report.
 \url{https://en.wikipedia.org/wiki/65,537}.
 \bibitem{modinv} GeeksforGeeks,  \emph{Modular inverse},
 \url{https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/}.
+\bibitem{RSA} Medium - Pedro Matias de Araujo,  \emph{Why RSA Cryptography Works},
+\url{https://medium.com/@pemtajo/why-rsa-criptography-works-ea8699f79779}.
 \bibitem{ssl} NameCheap,  \emph{Types of SSL Certificates},
 \url{https://www.namecheap.com/security/ssl-certificate-types/}.
+\bibitem{ca} Fordham Cnter of Cybersecurity,  \emph{Security Issues with Certificate Authorities},
+\url{stamp.jsp?arnumber=8249081&fbclid=IwAR1y2WusyHwtP_3gjW20zbje_FkF5UCQCOEdiOAn8iA0kXVHessOgjJmIEc}.
+\bibitem{browser} Venafi,  \emph{How Does a Browser Trust a Certificate},
+\url{https://www.venafi.com/blog/how-does-browser-trust-certificate?fbclid=IwAR0tSCfi090XnS-RD5uQW6U5mHKJF3HuHFkKSk8Xv6r8erQVPzko7XJ7Efo}.
 \end{thebibliography}
 
 
