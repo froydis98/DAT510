@@ -139,13 +139,55 @@ I could have, and was thinking about splitting up the message, to get a lower ex
 
 \section*{Part 2}
 \textit{1. What are the different types of SSL's and how different they are in aspect of security? Why ?}\\
-Noe svar her
+SSL (Security Sockets Layer) does encrypt data that is transferred between users and a website. Because it ensures that malicious third parties can't intercept your personal information it is especially important if the website features facilities as logins, forms that capture personal data or Credit card transactions. There are different types of SSL certificate but all of them have the same level of encryption. The differences is the level of validation. Validation level refers to the extent of checks that a Certificate Authority (CA) does to verify the identify of a person or organization that owns a website. I will get back to the CA in the next question. There are three main types of SSL validation:
+\\ 
+\textbf{Domain Validated certificates (DV SSL)}
 \\
+DV SSL is the lowest level of validation of these three. When you get the certificate, CAs does not look into information about the person or company that is running the website. They just check that they have control over the domain that is want's to be SSL certified. As a user, there is therefore limited information about the website ownership. For the person or organization issuing the certificate this is a quick process which is generally online and automated. It is also the cheapest option.
+\\
+\textbf{Organization validated certificates (OV SSL)}
+\\
+OV SSL requires some background checks. The CAs has to verify the individual or business that own the domain and do a minor evaluation. This is more trustworthy that DV SSL because the users can click on the padlock display and get some information about the owners of the domain, such as name, address and country. The users do therefore know who they are giving their information to. It takes often several days to issue an OV SSL cert, since some checks have to be done.
+\\
+\textbf{Extended Validated certificates (EV SSL)}
+\\
+EV SSL is the highest level of SSL certification you can get. CAs does extensive background cheks on the owners, validating its ownership, legal existence, physical location, and more. This is very expensive and can often take several weeks to issue. But with a EV cert the users will have no doubt about the site's trustworthiness and that it is a legitimate business.
+\\
+Depending on how many domains you need there is different types of SSL certificates. Each SSL cert combines the level of validation with the number of domains. Based on how many domains you need there are four different types of SSL.
+\\
+\textbf{Single-domain SSL certificate}
+\\
+With this certificate a single domain and all the pages on that domain are protected. You can choose between all three different validation levels for this certificate.
+\\
+\textbf{Wildcard SSL certificate}
+\\
+With this certificate you can protect a single domain and unlimited subdomains for that domain. This certificate can be issued with DV and OS level of validation, but not EV.
+\\
+\textbf{Multi-Domain SSL certificate}
+\\
+With this certificate you can protect up to 100 different domains. Wildcard domains can also be protected with a multi-domain SSL certificate. All three validation levels are available for this certificate.
+\\
+\textbf{Unified Communications SSL certificate}
+\\
+This certificate are similar to multi-domain certificates and can secure up to 100 domains and subdomains on one certificate. But unified communication certificates are created specifically for environments that utilize Microsoft Exchange and Office Communications. They use the Subject Alternative Name (SAN) extension instead of different IP address to secure these domains.
+\\\\
+By combining a validation level appropriate to the purposes, with the number of domains you need you can get an optimal SSL certificate. For answering this question I have used an article from namecheap.com and it's references, read it here \cite{ssl}.
+\\\\
 \textit{2. Research about the the Certificate Authority Security concerns and explain.}\\
-Noe svar her
+A certificate authory (CA) is a company or organization that acts to validate the identities of entities such as websites, email addresses, companies, or individual persons and bind them to cryptographic keys through the issuance of electronic documents known as digital certificates. A digital certificate verifies the ownership of a public key by the named subject of the certificate. A CA acts as a thrusted third part, which both the owner of the certificate and the party relying upon the certificate must trust. Sertifikatene varer for lenge. Let's 
+\\
+Single point of failure - hvem som helst kan lage en CA
+\\
+Problem with CA behaviour badly
+\\
+Lack of transparency - CA browser forum
+\\
+Breach - en private key blir lekket
 \\
 \textit{3. How does browsers identify secure CA's From another CA's and how is it measured ?}\\
-Noe svar her
+For the browser to identify and differ between CA's it needs access to the entire certificate chain up to and including the root CA for all of certificates it will verify. The root certificate must have been issued in a secure way. An other method used is to use the certificate trust list (CTL). That's a list of all trusted certificates. The list has to bee signed by the root CA that the browser trust. If one of the private keys in the certificate three has been lost or revealed, all of the children of that certificate can not be used anymore. 
+sjekk datoen
+
 
 \section*{Conclusion}
 A short paragraph that restates the objective from your introduction and relates it to your results and discussion, and
@@ -158,6 +200,8 @@ you got information from in your report.
 \url{https://en.wikipedia.org/wiki/65,537}.
 \bibitem{modinv} GeeksforGeeks,  \emph{Modular inverse},
 \url{https://www.geeksforgeeks.org/multiplicative-inverse-under-modulo-m/}.
+\bibitem{ssl} NameCheap,  \emph{Types of SSL Certificates},
+\url{https://www.namecheap.com/security/ssl-certificate-types/}.
 \end{thebibliography}
 
 
