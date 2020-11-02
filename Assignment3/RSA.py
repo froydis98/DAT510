@@ -110,7 +110,7 @@ def main():
     verifySignature(signature, messageTamp, e, n) """
 
     elapsed = timeit.default_timer() - start_time
-    print(elapsed)
+    print("This program used:", elapsed, "sec to run")
 
 if __name__ == "__main__":
     main()
