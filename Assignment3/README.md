@@ -2,7 +2,7 @@
 
 There are two options for testing RSA. You can either run the main in RSA.py that verifies that RSA does work as expected.
 Or you can run the two applications created and send messages between Alice and Bob. 
-The messages are sent with a signature and if will be checked that the signature matches the message.
+The messages are sent with a signature and will be checked that the signature matches the message.
 
 ## RSA.py
 Before you can execute the code you might need to install pycrypto, this is done by using the command:
